@@ -1,8 +1,8 @@
-.nav-link:hover {
-    background-color: #F7A74A;
-  }
-
 .navbar-custom {
   padding: 0px;
   background-color: #4a81f7;
+}
+
+.nav-link:hover {
+  background-color: #F7A74A;
 }
