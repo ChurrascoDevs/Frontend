@@ -8,6 +8,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // importen aqui sus componentes
 import Header from './common/Header';
 import LibraryCatalog from './Vista 1/LibraryCatalog';
+import Devolucion from './vista9/Devolucion';
 
 
 const root = ReactDOM.createRoot(
@@ -16,7 +17,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Header></Header>
-    <App/>
+    <Devolucion/>
   </React.StrictMode>
 );
 
