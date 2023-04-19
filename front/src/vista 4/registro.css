@@ -43,6 +43,13 @@ body {
 
 .register-button{
     background-color: #F7A74A;
+    border-color: #F7A74A;
+    color: black;
+  }
+
+.register-button:hover {
+    background-color: #D2C8BF;
+    border-color: #F7A74A;
     color: black;
   }
 

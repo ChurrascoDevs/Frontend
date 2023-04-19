@@ -13,6 +13,19 @@ body {
     color: black;
   }
 
+.login-button{
+    background-color: #F7A74A;
+    border-color: #F7A74A;
+    color: black;
+  }
+
+.login-button:hover {
+    background-color: #D2C8BF;
+    border-color: #F7A74A;
+    color: black;
+  }
+
+
 .encabezadoh2{
     font-family: sans-serif;
     margin-top: 30px;

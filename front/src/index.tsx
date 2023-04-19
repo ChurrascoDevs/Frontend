@@ -8,7 +8,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // importen aqui sus componentes
 import Header from './common/Header';
 import LibraryCatalog from './Vista 1/LibraryCatalog';
-import Login from './vista3/login';
+import Login from './vista 3/login';
 import Register from './vista 4/registro';
 
 
@@ -19,7 +19,6 @@ root.render(
   <React.StrictMode>
     <Header></Header>
     <Login></Login>
-
   </React.StrictMode>
 );
 
