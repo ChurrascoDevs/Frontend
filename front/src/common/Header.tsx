@@ -12,8 +12,9 @@ function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
             <Nav.Link href="/perfil" className="nav-link">Perfil</Nav.Link>
-              <Nav.Link href="/catalogo" className="nav-link">Catalogo</Nav.Link>
-              <Nav.Link href="/solicitudes" className="nav-link">Solicitudes</Nav.Link>
+              <Nav.Link href="/catalogo" className="nav-link1">Catalogo</Nav.Link>
+              <Nav.Link href="/solicitudes" className="nav-link2">Solicitudes</Nav.Link>
+              <Nav.Link href="/register" className="nav-link3">Crear usuario</Nav.Link>
             </Nav>
             <Nav>
             <Nav.Link href="/carrito" className="nav-link"><Cart size={25}/></Nav.Link>
