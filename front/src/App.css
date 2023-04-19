@@ -2,6 +2,9 @@
   text-align: center;
 }
 
+.tabla-con-fondo {
+  background-color: #FEF4E3; /* Color de fondo deseado */
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
