@@ -8,6 +8,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // importen aqui sus componentes
 import Header from './common/Header';
 import LibraryCatalog from './Vista 1/LibraryCatalog';
+import Login from './vista3/login';
+import Register from './vista 4/registro';
 
 
 const root = ReactDOM.createRoot(
@@ -16,7 +18,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Header></Header>
-    <App/>
+    <Login></Login>
+
   </React.StrictMode>
 );
 
