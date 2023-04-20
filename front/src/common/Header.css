@@ -1,8 +1,40 @@
-.nav-link:hover {
-    background-color: #F7A74A;
-  }
-
 .navbar-custom {
   padding: 0px;
   background-color: #4a81f7;
 }
+.nav-link {
+  color: #0B70AE;
+  position: relative;
+}
+.nav-link:hover {
+  background-color: #F7A74A;
+}
+
+.nav-link.active {
+  color: #0B70AE;
+  background-color:#ffd4bc; /* Agrega el color de fondo deseado aquí */
+}
+
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -1px; /* Ajusta la posición horizontal de la línea divisora izquierda */
+  height: 100%; /* Ajusta la altura de la línea divisora izquierda */
+  width: 2px; /* Ajusta el ancho de la línea divisora izquierda */
+  background-color: #0B70AE; /* Cambia el color de la línea divisora aquí */
+  opacity: 0.3;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -1px; /* Ajusta la posición horizontal de la línea divisora derecha */
+  height: 100%; /* Ajusta la altura de la línea divisora derecha */
+  width: 2px; /* Ajusta el ancho de la línea divisora derecha */
+  background-color: #0B70AE; /* Cambia el color de la línea divisora aquí */
+  opacity: 0.3;
+}
+

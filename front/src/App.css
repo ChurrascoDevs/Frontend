@@ -2,8 +2,14 @@
   text-align: center;
 }
 
+body {
+  background-color: #D2C8BF;
+}
+
 .tabla-con-fondo {
   background-color: #FEF4E3; /* Color de fondo deseado */
+  grid-column: 1 / span 12; /* La tabla ocupa 12 columnas del grid */
+  margin: 0 auto; /* Centra la tabla horizontalmente en su contenedor */
 }
 .App-logo {
   height: 40vmin;
@@ -38,4 +44,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.login-button{
+  background-color: #F7A74A;
+  color: black;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12 columnas en el grid */
+  gap: 10px; /* espacio entre las celdas del grid */
+  justify-items: center; /* Centra horizontalmente el contenido en las celdas */
 }

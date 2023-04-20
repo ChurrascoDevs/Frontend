@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Table, Button, Modal, Container, Row, Col } from "react-bootstrap";
-import './App.css'
+import { NavLink } from "react-router-dom"; 
+
+import './Vista_5.css'
 
 type Libro = {
   portada: string;
@@ -38,17 +40,18 @@ function LibroTabla({ libros }: LibroTablaProps) {
   };
 
   return (
-    <Container>
+    <Container >
+      <br></br>
       <Row>
         {/* Asignar 2 columnas vacías en el inicio */}
-        <Col sm={1} md={2}></Col>
+
         {/* Asignar 10 columnas a la tabla */}
-        <Col sm={10} md={10}>
-          <table>
+        <Col sm={6} md={12}>
+          
           <div>
-      <Table className="tabla-con-fondo" striped bordered hover>
+      <Table className="mx-auto tabla-con-fondo" striped bordered hover>
         <thead>
-          <tr>
+          <tr style={{ textAlign: "center", verticalAlign: "middle" }}>
             <th>Portada</th>
             <th>Autor</th>
             <th>Edición</th>
@@ -61,7 +64,7 @@ function LibroTabla({ libros }: LibroTablaProps) {
         </thead>
         <tbody>
           {libros?.map((libro) => (
-            <tr key={libro.autor}>
+            <tr style={{ textAlign: "center", verticalAlign: "middle" }} key={libro.autor}>
               <td>{libro.portada}</td>
               <td>{libro.autor}</td>
               <td>{libro.edicion}</td>
@@ -74,23 +77,27 @@ function LibroTabla({ libros }: LibroTablaProps) {
                   type="checkbox"
                   checked={selectedLibros.includes(libro)}
                   onChange={() => handleCheck(libro)}
+                  className="mi-checkbox"
                 />
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <div className="d-flex justify-content-end">
-        <Button variant="secondary" onClick={handleCloseModal}>
-          Cancelar
-        </Button>
+
+      <div className="botones-container">
+      <div className=" d-flex justify-content-end">
+      <NavLink to="/catalogo" >
+      <Button variant="secondary" >Cancelar</Button>
+    </NavLink>
+        
         <Button
-          variant="primary"
+          className="button_Solicitar"
           onClick={handleEnviarSolicitud}
-          className="ml-2"
         >
           Enviar Solicitud
         </Button>
+        </div>
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
@@ -107,10 +114,9 @@ function LibroTabla({ libros }: LibroTablaProps) {
         </Modal.Footer>
       </Modal>
     </div>
-          </table>
+         
         </Col>
         {/* Asignar 1 columna vacía al final */}
-        <Col sm={1} md={2}></Col>
       </Row>
     </Container>
     
