@@ -5,8 +5,8 @@ import './Header.css'; // Aquí puedes importar tu archivo CSS para el Header si
 
 function Header() {
     return (
-      <Navbar bg="light" expand="lg" className="navbar-custom mx-0">
-        <Container>
+      <Navbar bg="light" expand="md" className="navbar-custom mx-0">
+        <Container fluid>
           <Navbar.Brand href="/">Biblioteca</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

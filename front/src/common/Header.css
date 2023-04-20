@@ -1,8 +1,19 @@
+.nav-link {
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+}
 .nav-link:hover {
     background-color: #F7A74A;
   }
 
 .navbar-custom {
   padding: 0px;
-  background-color: #4a81f7;
+  height: 11vh;
+  background-color: #F5F5F5 !important;
+  z-index: 9999;
+}
+
+.navbar-collapse {
+  background-color: #F5F5F5 ;
+  text-align: center;
 }

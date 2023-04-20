@@ -1,0 +1,27 @@
+/*TODO*/
+.nav-link {
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+}
+.nav-link:hover {
+    background-color: #F7A74A;
+  }
+
+.navbar-custom {
+  padding: 0px;
+  height: 11vh;
+  background-color: #4a81f7;
+}
+
+.filter-container {
+  height: 100%;
+}
+
+.positive-action {
+  background-color: #74D05E;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
