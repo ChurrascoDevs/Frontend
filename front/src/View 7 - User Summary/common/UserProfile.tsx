@@ -17,7 +17,7 @@ const UserProfile = ({rol}: userInfo) => {
 
 
   return (
-    <Container id="basicInfo">
+    <Container>
       <Accordion defaultActiveKey={['0']} alwaysOpen>
       <Accordion.Item eventKey="0">
         <Accordion.Header className='acordion-header'>
