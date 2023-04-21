@@ -99,7 +99,7 @@ function LibroTabla({ libros }: LibroTablaProps) {
         </Button>
         </div>
       </div>
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} onHide={handleCloseModal} centered={true}>
         <Modal.Header closeButton>
           <Modal.Title>Solicitud enviada con éxito</Modal.Title>
         </Modal.Header>

@@ -1,10 +1,25 @@
 .navbar-custom {
-  padding: 0px;
-  background-color: #4a81f7;
+  padding: 00px;
+  height: 100%;
+  background-color: #F5F5F5 !important;
+  z-index: 9999;
+  box-shadow: 0px 1px 10px 0px;
 }
+
+.navbar-collapse {
+  background-color: #F5F5F5 ;
+  text-align: center;
+}
+
+.navbar-toggler {
+  margin: 2vw;
+}
+
 .nav-link {
   color: #0B70AE;
   position: relative;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
 }
 .nav-link:hover {
   background-color: #F7A74A;
@@ -15,16 +30,16 @@
   background-color:#ffd4bc; /* Agrega el color de fondo deseado aquí */
 }
 
-
 .nav-link::before {
   content: '';
   position: absolute;
   top: 0;
   left: -1px; /* Ajusta la posición horizontal de la línea divisora izquierda */
   height: 100%; /* Ajusta la altura de la línea divisora izquierda */
-  width: 2px; /* Ajusta el ancho de la línea divisora izquierda */
+  width: 1.2px; /* Ajusta el ancho de la línea divisora izquierda */
   background-color: #0B70AE; /* Cambia el color de la línea divisora aquí */
-  opacity: 0.3;
+  opacity: 1;
+  z-index: 2;
 }
 
 .nav-link::after {
@@ -33,8 +48,9 @@
   top: 0;
   right: -1px; /* Ajusta la posición horizontal de la línea divisora derecha */
   height: 100%; /* Ajusta la altura de la línea divisora derecha */
-  width: 2px; /* Ajusta el ancho de la línea divisora derecha */
+  width: 1.2px; /* Ajusta el ancho de la línea divisora derecha */
   background-color: #0B70AE; /* Cambia el color de la línea divisora aquí */
-  opacity: 0.3;
+  opacity: 1;
+  z-index: 2;
 }
 
