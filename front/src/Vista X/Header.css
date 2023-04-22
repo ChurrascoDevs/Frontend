@@ -2,7 +2,22 @@
   padding: 0px;
   background-color: #4a81f7;
 }
-
+.nav-link {
+  color: #0B70AE;
+}
 .nav-link:hover {
   background-color: #F7A74A;
+}
+
+.nav-link.active {
+  color: #ffd4bc;
+}
+
+.nav-link::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #0B70AE;
+  opacity: 0.3;
 }

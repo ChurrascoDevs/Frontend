@@ -1,0 +1,8 @@
+.FakeNightMode {
+  position: fixed; pointer-events: none; 
+  top: 0; left: 0; width: 100vw; height: 100vh; 
+  background-color: #fff9ef; 
+  mix-blend-mode: difference; 
+  z-index: 10000; opacity: 0;
+  transition: opacity 0.4s linear 0s;
+}
