@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 //import './Devolucion.css';
 import bookImage from './libro.jpg';
+import './Devolucion.css';
 
 function Devolucion() {
   const [codigo, setCodigo] = useState('');
@@ -39,10 +40,11 @@ function Devolucion() {
   };
 
   return (
-    <Container className="devo-container">
+    
+    <Container className="devo-container  gap-3">
         
-      <Row>
-        <Col>
+      <Row bsPrefix="my-3">
+        <Col >
         <Card className='p-4' >
             <div className='container d-flex justify-content-center'>
                 <Form >
@@ -62,34 +64,37 @@ function Devolucion() {
           </Card>
         </Col>
       </Row>
-      {libro && (
+ 
         <Card className='p-4'>
-            <Row>
-                <Col>
-                    <h3 className='centerForm'> Información del libro</h3>
-                </Col>
+          <Row>
+            <Col>
+              <h4 className='centerForm'> Devolucion</h4>
+            </Col>
+          </Row>
+        <div className='box'>
+            <Col>
+              <h4 className='centerForm'> 'El Gran Gatsby'</h4>
+            </Col>
+            <Row className="mt-4">
+              <Col md="auto">
+                  <img src={bookImage} width={250} height={250} alt="Libro" className="libro-imagen" />
+              </Col>
+              <Col className="libroinfo">
+                      <p><strong>Autor:</strong> {'F. Scott Fitzgerald'}</p>
+                      <p><strong>Fecha de préstamo:</strong> {'01/04/2023' }</p>
+                      <p><strong>Fecha límite:</strong> {'08/04/2023' }</p>
+                      <p><strong>Fecha actual:</strong> {'18/04/2023' }</p>
+                      <p><strong>Estado:</strong> {'2 días de retraso'}</p>
+              </Col>
             </Row>
-        <Row className="mt-4">
-            
-            <Col>
-                <img src={bookImage} width={250} height={250} alt="Libro" className="libro-imagen" />
-            </Col>
-            <Col>
-            <div className="libro-info">
-                <div className="libro-detalle">
-                    <p><strong>Título:</strong> {'El Gran Gatsby' }</p>
-                    <p><strong>Autor:</strong> {'F. Scott Fitzgerald'}</p>
-                    <p><strong>Fecha de préstamo:</strong> {'01/04/2023' }</p>
-                    <p><strong>Fecha límite:</strong> {'08/04/2023' }</p>
-                    <p><strong>Fecha actual:</strong> {'18/04/2023' }</p>
-                    <p><strong>Estado:</strong> {'2 días de retraso'}</p>
+              <Col>
+                <div className="d-flex flex-row-reverse">
+                  <Button className="p-2" variant="danger"  onClick={ () => handleDevolucion }>Devolver</Button>
                 </div>
-                </div>
-            </Col>
-        </Row>
-        <Button variant="danger" className="mt-4" onClick={ () => handleDevolucion }>Devolver</Button>
+              </Col>
+              </div>
         </Card>
-      )}
+       
     </Container>
   );
 }
