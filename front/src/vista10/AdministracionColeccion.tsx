@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 //import './Devolucion.css';
 
+const form_control = {
+    width: '300px'  , 
+    backgroundColor: '#e9ecef' 
+}
+
+
 function AdministracionColeccion() {
     return (
         <Container className="devo-container  gap-3" style={{ paddingTop: '40px' }}>
@@ -15,7 +21,7 @@ function AdministracionColeccion() {
                             <Form.Label>Tipo</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Control style={{ width: '300px' }} placeholder="Tipo" />
+                            <Form.Control style={form_control} placeholder="Tipo" />
                         </Form.Group>
                     </Form.Group>
 
@@ -24,7 +30,7 @@ function AdministracionColeccion() {
                             <Form.Label>Titulo</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Control style={{ width: '300px' }} placeholder="Titulo" />
+                            <Form.Control style={form_control} placeholder="Titulo" />
                         </Form.Group>
                     </Form.Group>
 
@@ -33,7 +39,7 @@ function AdministracionColeccion() {
                             <Form.Label>Autor</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Control style={{ width: '300px' }} placeholder="Autor" />
+                            <Form.Control style={form_control} placeholder="Autor" />
                         </Form.Group>
                     </Form.Group>
 
@@ -42,25 +48,25 @@ function AdministracionColeccion() {
                             <Form.Label>Editorial</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Control style={{ width: '300px' }} placeholder="Editorial" />
+                            <Form.Control style={form_control} placeholder="Editorial" />
                         </Form.Group>
                     </Form.Group>
 
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
                         <Form.Group as={Col}>
-                            <Form.Label>Edicion</Form.Label>
+                            <Form.Label>Edición</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Control style={{ width: '300px' }} placeholder="Edicion" />
+                            <Form.Control style={form_control} placeholder="Edición" />
                         </Form.Group>
                     </Form.Group>
 
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
                         <Form.Group as={Col}>
-                            <Form.Label>Año Edicion</Form.Label>
+                            <Form.Label>Año Edición</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Control style={{ width: '300px' }} placeholder="Año Edicion" />
+                            <Form.Control style={form_control} placeholder="Año Edición" />
                         </Form.Group>
                     </Form.Group>
 
@@ -69,7 +75,7 @@ function AdministracionColeccion() {
                             <Form.Label>Estanteria</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Control style={{ width: '300px' }} placeholder="Estanteria" />
+                            <Form.Control style={form_control} placeholder="Estanteria" />
                         </Form.Group>
                     </Form.Group>
 
