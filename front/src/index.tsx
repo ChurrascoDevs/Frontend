@@ -14,6 +14,7 @@ import Solicitudes from './Vista 5/Solicitudes';
 //import FakeNighMode from './common/FakeNightMode'; //only if needed dev
 import GridSystem_ProfileWorkspace from './View 7 - User Summary/GridSystem_ProfileWorkingSpace';
 import Devolucion from './vista9/Devolucion';
+import AdministracionColeccion from './vista10/AdministracionColeccion';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="solicitudes" element={<Solicitudes />} />
           <Route path="register" element={<Register></Register>}> </Route>
           <Route path="devolucion" element={<Devolucion/>}> </Route>
+          <Route path="agregar" element={<AdministracionColeccion/>}> </Route>
           <Route path="perfil" element={<GridSystem_ProfileWorkspace></GridSystem_ProfileWorkspace>}> </Route>
         
       </Routes>

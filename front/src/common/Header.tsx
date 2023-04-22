@@ -22,10 +22,12 @@ function Header() {
             <Nav.Link href="/catalogo" className={`nav-link ${currentPath === '/catalogo' ? 'active' : ''}`}>Catalogo</Nav.Link>
             <Nav.Link href="/solicitudes" className={`nav-link ${currentPath === '/solicitudes' ? 'active' : ''}`}>Solicitudes</Nav.Link>
             <Nav.Link href="/devolucion" className={`nav-link ${currentPath === '/devolucion' ? 'active' : ''}`}>Devolucion</Nav.Link>
+            <Nav.Link href="/agregar" className={`nav-link ${currentPath === '/agregar' ? 'active' : ''}`}>Agregar</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href="/carrito" className="nav-link"><Cart size={25} /></Nav.Link>
             <Nav.Link href="/cerrar-sesion" className="nav-link">Cerrar Sesión</Nav.Link>
+            
           </Nav>
         </Navbar.Collapse>
       </Container>
