@@ -1,0 +1,17 @@
+.my-custom-button {
+    background-color: #F7A74A !important;;
+    color: white !important;
+    border-color: green !important;
+}
+input[type="checkbox"] {
+    color: red !important;
+    border-color: red;
+    background-color: #F7A74A;
+  }
+  input[type="checkbox"]:checked {
+    background-color: green;
+    border-color: blue;
+  }
+  .book-container {
+    min-height: 700px; /* ajusta la altura mínima según tus necesidades, porque cuando hay pocos libros se ve blanco el fondo */ 
+  }
