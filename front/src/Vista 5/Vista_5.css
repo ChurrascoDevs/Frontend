@@ -21,21 +21,10 @@
   }
 
   .button_Solicitar {
-    background-color: #F7A74A; /* Color de fondo del botón */
-    border: none; /* Borde del botón */
-    color:  #012840; /* Color del texto del botón */
- /* Relleno del botón */
-    cursor: pointer; /* Cursor al pasar el mouse por encima */
-    transition: background-color 0.3s ease-in-out; /* Transición suave del color de fondo */
-  }
-  
-  .button_Solicitar:hover {
-    background-color: #74D05E; /* Color de fondo al pasar el mouse por encima */
-    border: none; /* Borde del botón */
-    color:  #012840; /* Color del texto del botón */
- /* Relleno del botón */
-    cursor: pointer; /* Cursor al pasar el mouse por encima */
-  }
+    background-color: #F7A74A !important;;
+    color: white !important;
+    border-color: green !important;
+}
 
 
   /* Estilos para un checkbox con una clase específica */

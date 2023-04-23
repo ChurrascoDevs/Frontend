@@ -1,10 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Form, InputGroup, FormControl, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Form, InputGroup, FormControl, Button, Modal } from "react-bootstrap";
 import './LibraryCatalog.css';
 
 const LibraryCatalog = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterBy, setFilterBy] = useState("");
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [solicitudes, setSolicitudes] = useState<Book[]>([]);
+  interface Book {
+    id: number;
+    title: string;
+    author: string;
+    year: string; 
+    category: string; 
+    type: string; 
+    edition: string;
+    cover: string;
+  }  
+
+// Función para abrir el modal con el libro seleccionado
+const handleOpenModal = (book: Book) => { // Especifica el tipo de 'book' como 'Book'
+  setShowModal(true);
+  setSelectedBook(book);
+  console.log("LIBRO:" , setSelectedBook)
+};
+// Función para cerrar el modal
+const handleCloseModal = () => {
+  setSelectedBook(null);
+  setShowModal(false);
+};
+
+const handleAddToSolicitud = (book: Book) => {
+  
+  setSolicitudes([...solicitudes, book]);
+  handleCloseModal(); // Cerrar el modal después de agregar el libro
+};
 
   // Datos de ejemplo para los libros
 const books = [
@@ -566,32 +597,69 @@ setSelectedEditions([]);
 
 
       <Row>
-  {filteredBooks.map((book) => (
-    <Col xs={12} sm={6} md={4} key={book.id}>
-      <br />
-      <Card>
-        <Row noGutters={true}>
-          <Col xs={4}>
-            <Card.Img variant="top" src={book.cover} />
-          </Col>
-          <Col xs={8}>
-            <Card.Body>
-              <Card.Title>{book.title}</Card.Title>
-              <Card.Text>
-                <strong>Autor:</strong> {book.author}
-                <br />
-                <strong>Año:</strong> {book.year}
-              </Card.Text>
-            </Card.Body>            
-          </Col>
+          {books.map((book) => (
+            <Col xs={12} sm={6} md={4} key={book.id}>
+              <br />
+              <Card
+                style={{ cursor: "pointer" }} // Agrega un estilo para que la card sea clickeable
+                onClick={() => handleOpenModal(book)} 
+              >
+                <Row noGutters={true}>
+                  <Col xs={4}>
+                    <Card.Img variant="top" src={book.cover} />
+                  </Col>
+                  <Col xs={8}>
+                    <Card.Body>
+                      <Card.Title>{book.title}</Card.Title>
+                      <Card.Text>
+                        <strong>Autor:</strong> {book.author}
+                        <br />
+                        <strong>Año:</strong> {book.year}
+                      </Card.Text>
+                    </Card.Body>
+                  </Col>
+                </Row>
+              </Card>
+              <br />
+            </Col>
+          ))}
         </Row>
-      </Card>
-      <br />
-    </Col>
-  ))}
-
-</Row>
     </Container>
+
+    <Modal show={showModal} onHide={handleCloseModal} centered>
+  {/* Contenido del modal con los detalles del libro */}
+  {selectedBook && (
+    <>
+      <Modal.Header closeButton>
+        <Modal.Title>{selectedBook.title}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Container>
+          <Row>
+            <Col xs={4}>
+              <img src={selectedBook.cover} alt={selectedBook.title} className="img-fluid" />
+            </Col>
+            <Col xs={8}>
+              <strong>Autor:</strong> {selectedBook.author}
+              <br />
+              <strong>Año:</strong> {selectedBook.year}
+              <br />
+              <strong>Categoría:</strong> {selectedBook.category}
+              <br />
+              <strong>Tipo:</strong> {selectedBook.type}
+              <br />
+              <strong>Edición:</strong> {selectedBook.edition}
+            </Col>
+          </Row>
+        </Container>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" className= "my-custom-button" onClick={() => handleAddToSolicitud(selectedBook)}>Agregar</Button>
+        <Button variant="secondary" onClick={handleCloseModal}>Volver</Button>
+      </Modal.Footer>
+    </>
+  )}
+</Modal>
     </div>
   );
 };
