@@ -5,6 +5,8 @@ body {
   font-family: 'IBM Plex Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #012840 !important;
+  background-image: repeating-linear-gradient(45deg, #D2C8BF, #b8ad96 100px)
 }
 
 code {
@@ -13,5 +15,10 @@ code {
 }
 
 .root-container {
-  background-color: #D2C8BF;
+  background-image: repeating-linear-gradient(45deg, #D2C8BF, #b8ad96 100px);
+  min-width: fit-content;
+}
+
+.rendered-component {
+  height: 100vh;
 }

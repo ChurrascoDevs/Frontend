@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 //import './Devolucion.css';
 
 const form_control = {
-    width: '300px'  , 
+    //width: '300px'  , 
     backgroundColor: '#e9ecef' 
 }
 
@@ -13,11 +13,11 @@ function AdministracionColeccion() {
         <Container className="devo-container  gap-3" style={{ paddingTop: '40px' }}>
             <Card className='p-4'  >
             <h3 className='centerForm'> Ingresar documento </h3>
-                <div className='container d-flex justify-content-center'>
+                <Col>
                 
                 <Form>
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} xs={3}>
                             <Form.Label>Tipo</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
@@ -26,7 +26,7 @@ function AdministracionColeccion() {
                     </Form.Group>
 
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} xs={3}>
                             <Form.Label>Titulo</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
@@ -35,7 +35,7 @@ function AdministracionColeccion() {
                     </Form.Group>
 
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} xs={3}>
                             <Form.Label>Autor</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
@@ -44,7 +44,7 @@ function AdministracionColeccion() {
                     </Form.Group>
 
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} xs={3}>
                             <Form.Label>Editorial</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
@@ -53,7 +53,7 @@ function AdministracionColeccion() {
                     </Form.Group>
 
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} xs={3}>
                             <Form.Label>Edición</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
@@ -62,7 +62,7 @@ function AdministracionColeccion() {
                     </Form.Group>
 
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} xs={3}>
                             <Form.Label>Año Edición</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
@@ -71,7 +71,7 @@ function AdministracionColeccion() {
                     </Form.Group>
 
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} xs={3}>
                             <Form.Label>Estanteria</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
@@ -83,7 +83,7 @@ function AdministracionColeccion() {
                             <Button>Ingresar</Button>
                     </div>
                 </Form>
-                </div>
+                </Col>
             </Card>
         </Container>
         );

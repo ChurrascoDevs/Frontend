@@ -262,7 +262,7 @@ setSelectedEditions([]);
 
   
   return (
-    <div className="book-container" style={{ backgroundColor: "#D2C8BF" }}>
+    <div className="book-container">
     <Container>
       <Row>
         <Col xs={12}>

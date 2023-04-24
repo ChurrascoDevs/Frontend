@@ -1,6 +1,7 @@
 .navbar-custom {
   padding: 00px;
   height: 100%;
+  color: #012840 !important;
   background-color: #F5F5F5 !important;
   z-index: 9999;
   box-shadow: 0px 1px 10px 0px;
@@ -16,41 +17,17 @@
 }
 
 .nav-link {
-  color: #0B70AE;
   position: relative;
   padding-top: 2vh;
   padding-bottom: 2vh;
+  color: #012840;
 }
 .nav-link:hover {
-  background-color: #F7A74A;
+  background-color: #ffffff00 !important;
+  color: #F7A74A;
 }
 
 .nav-link.active {
   color: #0B70AE;
   background-color:#ffd4bc; /* Agrega el color de fondo deseado aquí */
 }
-
-.nav-link::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -1px; /* Ajusta la posición horizontal de la línea divisora izquierda */
-  height: 100%; /* Ajusta la altura de la línea divisora izquierda */
-  width: 1.2px; /* Ajusta el ancho de la línea divisora izquierda */
-  background-color: #0B70AE; /* Cambia el color de la línea divisora aquí */
-  opacity: 1;
-  z-index: 2;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -1px; /* Ajusta la posición horizontal de la línea divisora derecha */
-  height: 100%; /* Ajusta la altura de la línea divisora derecha */
-  width: 1.2px; /* Ajusta el ancho de la línea divisora derecha */
-  background-color: #0B70AE; /* Cambia el color de la línea divisora aquí */
-  opacity: 1;
-  z-index: 2;
-}
-

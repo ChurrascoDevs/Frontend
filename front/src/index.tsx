@@ -48,8 +48,9 @@ root.render(
 
      </Router>
     
-    <App></App>
-    
+    <div className='rendered-component'>
+      <App></App>
+    </div>    
 
   </React.StrictMode>
   </div>

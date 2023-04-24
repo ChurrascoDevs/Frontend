@@ -4,6 +4,7 @@
 
 body {
   background-color: #D2C8BF;
+  color: #012840 !important;
 }
 
 .tabla-con-fondo {
@@ -30,7 +31,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #012840 !important;
 }
 
 .App-link {
@@ -48,8 +49,8 @@ body {
 
 
 .login-button{
-  background-color: #F7A74A;
-  color: black;
+  background-color: #8b4a00;
+  color: #012840 !important;
 }
 
 .container {
