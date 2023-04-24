@@ -15,3 +15,10 @@ input[type="checkbox"] {
   .book-container {
     min-height: 700px; /* ajusta la altura mínima según tus necesidades, porque cuando hay pocos libros se ve blanco el fondo */ 
   }
+  .button_Solicitar {
+    background-color: #F7A74A; /* Color de fondo del botón */
+    border: none; /* Borde del botón */
+    color:  #012840; /* Color del texto del botón */
+ /* Relleno del botón */
+    cursor: pointer; /* Cursor al pasar el mouse por encima */
+  }
