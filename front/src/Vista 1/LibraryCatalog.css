@@ -1,19 +1,22 @@
 .my-custom-button {
-    background-color: #F7A74A !important;;
-    color: white !important;
-    border-color: green !important;
+    background-color: #F7A74A !important;
+    color: #F5F5F5 !important;
+    border-color: #f09328 !important;
+}
+.mi-div {
+  background-color: red;
 }
 input[type="checkbox"] {
-    color: red !important;
-    border-color: red;
+    color: #f09328;
+    border-color: #f09328;
     background-color: #F7A74A;
   }
   input[type="checkbox"]:checked {
-    background-color: green;
-    border-color: blue;
+    background-color: #53C138;
+    border-color: #F5F5F5;
   }
   .book-container {
-    min-height: 700px; /* ajusta la altura mínima según tus necesidades, porque cuando hay pocos libros se ve blanco el fondo */ 
+    min-height: 100ph; /* ajusta la altura mínima según tus necesidades, porque cuando hay pocos libros se ve blanco el fondo */ 
   }
   .button_Solicitar {
     background-color: #F7A74A; /* Color de fondo del botón */
@@ -21,4 +24,17 @@ input[type="checkbox"] {
     color:  #012840; /* Color del texto del botón */
  /* Relleno del botón */
     cursor: pointer; /* Cursor al pasar el mouse por encima */
+  }
+  .my-col {
+    text-align: center;
+    background-color: #FEF4E3;
+  }
+  .mi-form-control {
+    color: #FEF4E3;
+  }
+  .my-col-button {
+    text-align: center;
+  }
+  .modal-content {
+    background-color: #FEF4E3;
   }

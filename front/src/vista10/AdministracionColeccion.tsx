@@ -27,10 +27,10 @@ function AdministracionColeccion() {
 
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
                         <Form.Group as={Col} xs={3}>
-                            <Form.Label>Titulo</Form.Label>
+                            <Form.Label>Título</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Control style={form_control} placeholder="Titulo" />
+                            <Form.Control style={form_control} placeholder="Título" />
                         </Form.Group>
                     </Form.Group>
 
@@ -72,15 +72,33 @@ function AdministracionColeccion() {
 
                     <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
                         <Form.Group as={Col} xs={3}>
-                            <Form.Label>Estanteria</Form.Label>
+                            <Form.Label>Categoría</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Control style={form_control} placeholder="Estanteria" />
+                            <Form.Control style={form_control} placeholder="Categoría" />
+                        </Form.Group>
+                    </Form.Group>
+
+                    <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
+                        <Form.Group as={Col} xs={3}>
+                            <Form.Label>Tipo</Form.Label>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Control style={form_control} placeholder="Tipo" />
+                        </Form.Group>
+                    </Form.Group>
+
+                    <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
+                        <Form.Group as={Col} xs={3}>
+                            <Form.Label>Estantería</Form.Label>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Control style={form_control} placeholder="Estantería" />
                         </Form.Group>
                     </Form.Group>
 
                     <div className="d-flex flex-row-reverse">
-                            <Button>Ingresar</Button>
+                            <Button className="my-custom-button">Ingresar</Button>
                     </div>
                 </Form>
                 </Col>

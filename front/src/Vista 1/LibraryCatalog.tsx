@@ -38,23 +38,28 @@ const handleAddToSolicitud = (book: Book) => {
 };
 
   // Datos de ejemplo para los libros
-const books = [
-    { id: 1, title: "Libro 1", author: "Autor 1", year: "2000", category: "category1", type:"type1", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 2, title: "Libro 2", author: "Autor 2", year: "2005", category: "category2", type:"type2", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 3, title: "Libro 3", author: "Autor 3333333333333333", year: "2010", category: "category1", type:"type1", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 4, title: "Libro 4", author: "Autor 4", year: "2011", category: "category3", type:"type1", edition: "edition3",cover: "https://via.placeholder.com/150" },
-    { id: 5, title: "Libro5", author: "Autor 5", year: "1999", category: "category5", type:"type1", edition: "edition4",cover: "https://via.placeholder.com/150" },
-    { id: 6, title: "Libro6", author: "Autor 6", year: "2006", category: "category4", type:"type1", edition: "edition7",cover: "https://via.placeholder.com/150" },
-    { id: 7, title: "Libro7", author: "Autor 7", year: "2019", category: "category7", type:"type1", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 8, title: "Libro8", author: "Autor 888888", year: "2020", category: "category8", type:"type1", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 9, title: "Libro9", author: "Autor 9", year: "2021", category: "category9", type:"type1", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 10, title: "Libro10", author: "Autor 1000", year: "2000", category: "category1", type:"type1", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 11, title: "Libro11", author: "Autor 11", year: "2010", category: "category1", type:"type2", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 12, title: "Libro12", author: "Autor 12", year: "2010", category: "category1", type:"type3", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 13, title: "Libro12", author: "Autor 12", year: "2010", category: "category1", type:"type4", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 14, title: "Libro12", author: "Autor 12", year: "2010", category: "category1", type:"type5", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 15, title: "Libro12", author: "Autor 12", year: "2010", category: "category1", type:"type6", edition: "edition1",cover: "https://via.placeholder.com/150" },
-    { id: 16, title: "Libro12", author: "Autor 12", year: "2010", category: "category1", type:"type7", edition: "edition1",cover: "https://via.placeholder.com/150" },
+  const books = [
+    { id: 1, title: "1984", author: "George Orwell", year: "1949", category: "Ficción distópica", type:"Novela", edition: "Primera edición",cover: "https://via.placeholder.com/150" },
+    { id: 2, title: "La Guerra y la Paz", author: "Lev Tolstói", year: "1869", category: "Ficción histórica", type:"Novela", edition: "Edición en español",cover: "https://via.placeholder.com/150" },
+    { id: 3, title: "El Perfume", author: "Patrick Süskind", year: "1985", category: "Ficción", type:"Novela", edition: "Edición de bolsillo",cover: "https://via.placeholder.com/150" },
+    { id: 4, title: "Cien años de soledad", author: "Gabriel García Márquez", year: "1967", category: "Ficción", type:"Novela", edition: "Edición crítica",cover: "https://via.placeholder.com/150" },
+    { id: 5, title: "El Principito", author: "Antoine de Saint-Exupéry", year: "1943", category: "Ficción", type:"Cuento", edition: "Edición ilustrada",cover: "https://via.placeholder.com/150" },
+    { id: 6, title: "La sombra del viento", author: "Carlos Ruiz Zafón", year: "2001", category: "Ficción", type:"Novela", edition: "Edición de tapa dura",cover: "https://via.placeholder.com/150" },
+    { id: 7, title: "Breve historia del tiempo", author: "Stephen Hawking", year: "1988", category: "No ficción", type:"Divulgación científica", edition: "Edición de bolsillo",cover: "https://via.placeholder.com/150" },
+    { id: 8, title: "El arte de amar", author: "Erich Fromm", year: "1956", category: "No ficción", type:"Ensayo", edition: "Edición actualizada",cover: "https://via.placeholder.com/150" },
+    { id: 9, title: "El nombre de la rosa", author: "Umberto Eco", year: "1980", category: "Ficción histórica", type:"Novela", edition: "Edición especial con prólogo del autor",cover: "https://via.placeholder.com/150" },
+    { id: 10, title: "Las venas abiertas de América Latina", author: "Eduardo Galeano", year: "1971", category: "No ficción", type:"Ensayo político", edition: "Edición con anotaciones del autor",cover: "https://via.placeholder.com/150" },
+    { id: 11, title: "El Aleph", author: "Jorge Luis Borges ", year: "1949", category: "Ficción", type:"Cuento", edition: "Edición en español",cover: "https://via.placeholder.com/150" },
+    { id: 12, title: "Matar a un ruiseñor", author: "Harper Lee", year: "1960", category: "Ficción", type:"Novela", edition: "Edición de bolsillo",cover: "https://via.placeholder.com/150" },
+    { id: 13, title: "La naranja mecánica", author: " Anthony Burgess", year: "1962", category: " Ficción distópica", type:"Novela", edition: "Edición crítica",cover: "https://via.placeholder.com/150" },
+    { id: 14, title: "Mujercitas", author: "Louisa May Alcott", year: "1868", category: "Ficción", type:"Novela", edition: "Edición de tapa dura",cover: "https://via.placeholder.com/150" },
+    { id: 15, title: "La insoportable levedad del ser", author: "Milan Kundera", year: "1984", category: "Ficción", type:"Novela", edition: "Edición especial con prólogo del autor",cover: "https://via.placeholder.com/150" },
+    { id: 16, title: "Crónica de una muerte anunciada", author: "Gabriel García Márquez", year: "1981", category: "Ficción", type:"Novela", edition: "Edición de bolsillo",cover: "https://via.placeholder.com/150" },
+    { id: 17, title: "El Hobbit", author: "J.R.R. Tolkien", year: "1937", category: "Ficción fantástica", type:"Novela", edition: "Edición de tapa blanda",cover: "https://via.placeholder.com/150" },
+    { id: 18, title: "El retrato de Dorian Gray", author: "Oscar Wilde", year: "1890", category: "Ficción", type:"Novela", edition: "Edición de bolsillo",cover: "https://via.placeholder.com/150" },
+    { id: 19, title: "El psicoanalista", author: "John Katzenbach", year: "2002", category: "Ficción", type:"Novela de suspense", edition: "Edición actualizada",cover: "https://via.placeholder.com/150" },
+    { id: 20, title: "La tregua", author: "Mario Benedetti", year: "1960", category: "Ficción", type:"Novela", edition: "Edición de tapa dura",cover: "https://via.placeholder.com/150" },
+    { id: 21, title: "1984", author: "George Orwell ", year: "1949", category: "Ficción distópica", type:"Novela", edition: "Primera edición",cover: "https://via.placeholder.com/150" },
   ];
 
 
@@ -300,7 +305,7 @@ setSelectedEditions([]);
           <InputGroup className="mt-3">
           <Form.Select value={filterBy} onChange={(e) => setFilterBy(e.target.value)}
           style={{ backgroundColor: '#F5F5F5', color: '#012840' }}
-          className="my-select">
+          >
   <option value="">Filtrar por...</option>
   <option value="title">Título</option>
   <option value="author" >Autor</option>
@@ -323,12 +328,13 @@ setSelectedEditions([]);
     <Col xs={8}>
     <FormControl
               type="text"
+              className="my-form-control"
               placeholder="Buscar libros"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
     </Col>
-    <Col xs={4}>
+    <Col xs={4} className="my-col-button">
     <Button variant="primary" className="my-custom-button" onClick={() => setSearchTerm("")}>Limpiar filtro</Button>
 
             </Col>
@@ -336,8 +342,10 @@ setSelectedEditions([]);
 )}
 {filterBy === "author" && (
   <InputGroup className="mt-3">
-    <Col xs={8}>
+    
+    <Col xs={8} className="my-col">
       {/* Agregar las dos columnas de autores */}
+      
       <Row>
         <Col>
           {firstColumnAuthors.map((author) => (
@@ -387,14 +395,16 @@ setSelectedEditions([]);
         </Col>
       </Row>
     </Col>
-    <Col xs={4}>
+    
+    <Col xs={4} className="my-col-button">
     <Button variant="primary" className="my-custom-button" onClick={handleClearFilter}>Limpiar filtro</Button>
     </Col>
+    
   </InputGroup>
 )}
 {filterBy === "category" && (
   <InputGroup className="mt-3">
-    <Col xs={8}>
+    <Col xs={8} className="my-col">
       {/* Agregar las dos columnas de autores */}
       <Row>
         <Col>
@@ -445,14 +455,14 @@ setSelectedEditions([]);
         </Col>
       </Row>
     </Col>
-    <Col xs={4}>
+    <Col xs={4} className="my-col-button">
     <Button variant="primary" className="my-custom-button" onClick={handleClearFilterCategory}>Limpiar filtro</Button>
     </Col>
   </InputGroup>
 )}
 {filterBy === "type" && (
   <InputGroup className="mt-3">
-    <Col xs={8}>
+    <Col xs={8} className="my-col">
       {/* Agregar las dos columnas de autores */}
       <Row>
         <Col>
@@ -503,14 +513,14 @@ setSelectedEditions([]);
         </Col>
       </Row>
     </Col>
-    <Col xs={4}>
+    <Col xs={4} className="my-col-button">
     <Button variant="primary" className="my-custom-button" onClick={handleClearFilterType}>Limpiar filtro</Button>
     </Col>
   </InputGroup>
 )}
 {filterBy === "edition" && (
   <InputGroup className="mt-3">
-    <Col xs={8}>
+    <Col xs={8} className="my-col">
       {/* Agregar las dos columnas de autores */}
       <Row>
         <Col>
@@ -561,7 +571,7 @@ setSelectedEditions([]);
         </Col>
       </Row>
     </Col>
-    <Col xs={4}>
+    <Col xs={4} className="my-col-button">
     <Button variant="primary" className="my-custom-button" onClick={handleClearFilterEdition}>Limpiar filtro</Button>
     </Col>
   </InputGroup>
@@ -569,7 +579,8 @@ setSelectedEditions([]);
         {filterBy === "year" && (
   <InputGroup className="mt-3">
     <Col xs={4}>
-    <Form.Select className="me-2" value={minYear} onChange={(e) => setMinYear(e.target.value)}>
+    <Form.Select className="me-2" value={minYear} onChange={(e) => setMinYear(e.target.value)}
+    style={{ backgroundColor: '#FEF4E3', color: '#012840' }}>
     <option value="">Desde</option>
     {uniqueYears.map((year) => (
       <option value={year} key={year}>{year}</option>
@@ -577,14 +588,15 @@ setSelectedEditions([]);
   </Form.Select>
     </Col>
     <Col xs={4}>
-    <Form.Select className="ms-2" value={maxYear} onChange={(e) => setMaxYear(e.target.value)}>
+    <Form.Select className="ms-2" value={maxYear} onChange={(e) => setMaxYear(e.target.value)}
+    style={{ backgroundColor: '#FEF4E3', color: '#012840' }}>
     <option value="">Hasta</option>
     {uniqueYears.map((year) => (
       <option value={year} key={year}>{year}</option>
     ))}
   </Form.Select>
     </Col>
-    <Col xs={4}>
+    <Col xs={4} className="my-col-button">
                   <Button variant="primary" className="my-custom-button" onClick={handleClearFilters}>
                 Limpiar filtro
                   </Button>
@@ -597,10 +609,11 @@ setSelectedEditions([]);
 
 
       <Row>
-          {books.map((book) => (
+          {filteredBooks.map((book) => (
             <Col xs={12} sm={6} md={4} key={book.id}>
               <br />
-              <Card
+              <Card 
+                className="modal-content"
                 style={{ cursor: "pointer" }} // Agrega un estilo para que la card sea clickeable
                 onClick={() => handleOpenModal(book)} 
               >
@@ -630,7 +643,7 @@ setSelectedEditions([]);
   {/* Contenido del modal con los detalles del libro */}
   {selectedBook && (
     <>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton className="modal-content">
         <Modal.Title>{selectedBook.title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>

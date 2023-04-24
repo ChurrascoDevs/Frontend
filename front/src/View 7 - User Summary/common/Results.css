@@ -111,3 +111,37 @@
 .state-doc-badge {
   margin-left: 10px;
 }
+
+
+.mi-paginacion .page-link {
+  color: #012840; /* color del texto de los números de página */
+  background-color: #f5f5f5; /* color de fondo de los números de página no activos */
+  border-color: #f5f5f5; /* color del borde de los números de página no activos */
+}
+
+.mi-paginacion .page-link:hover,
+.mi-paginacion .page-link:focus {
+  color: #012840; /* color del texto de los números de página al pasar el cursor o al hacer clic */
+  background-color: #f5f5f5; /* color de fondo de los números de página al pasar el cursor o al hacer clic */
+  border-color: #f5f5f5; /* color del borde de los números de página al pasar el cursor o al hacer clic */
+}
+
+.mi-paginacion .page-item.active .page-link {
+  color: #f5f5f5; /* color del texto del número de página activo */
+  background-color: #f09328; /* color de fondo del número de página activo */
+  border-color: #f09328; /* color del borde del número de página activo */
+}
+
+.mi-paginacion .page-item.disabled .page-link {
+  color: #012840; /* color del texto de los números de página deshabilitados */
+  background-color: #f5f5f5; /* color de fondo de los números de página deshabilitados */
+  border-color: #f5f5f5; /* color del borde de los números de página deshabilitados */
+}
+
+.mi-paginacion .page-link:focus {
+  box-shadow: none; /* eliminar la sombra al hacer clic */
+}
+
+.mi-paginacion .page-link::before {
+  content: "";
+}

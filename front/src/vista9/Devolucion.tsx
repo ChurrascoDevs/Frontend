@@ -50,13 +50,13 @@ function Devolucion() {
                 <Form >
                     <Form.Group as={Row} className="d-flex align-items-end">
                         <Form.Group as={Col} controlId="formGridPassword">
-                            <Form.Label>Codigo documento</Form.Label>
+                            <Form.Label>Código documento</Form.Label>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridPassword">
-                            <Form.Control placeholder="Codigo" />
+                            <Form.Control placeholder="Código" />
                         </Form.Group>
-                        <Form.Group as={Col} controlId="formButton">
-                            <Button>Ingresar</Button>
+                        <Form.Group as={Col} controlId="formButton" >
+                            <Button className='my-custom-button'>Ingresar</Button>
                         </Form.Group>
                     </Form.Group>
                 </Form>

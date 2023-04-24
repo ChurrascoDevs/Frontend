@@ -9,8 +9,9 @@ body {
 }
 
 .login-button{
-    background-color: #F7A74A;
-    color: black;
+  background-color: #F7A74A !important;;
+  color: #F5F5F5 !important;
+  border-color: #f09328 !important;
   }
 
 .encabezadoh2{

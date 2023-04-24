@@ -96,7 +96,7 @@ function Results({rol}: userInfo) {
             ))}
             </ListGroup>
           
-            <Pagination>
+            <Pagination className="mi-paginacion">
               <Pagination.Prev />
               <Pagination.Item active>{1}</Pagination.Item>
               <Pagination.Item>{2}</Pagination.Item>
