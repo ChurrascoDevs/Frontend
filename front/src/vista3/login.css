@@ -1,0 +1,26 @@
+body {
+    background-color: #D2C8BF;
+}
+
+.login-form{
+    background-color: #E3DED8;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.login-button{
+  background-color: #F7A74A !important;;
+  color: #F5F5F5 !important;
+  border-color: #f09328 !important;
+  }
+
+.encabezadoh2{
+    font-family: sans-serif;
+    margin-top: 30px;
+  }
+
+.login-form{
+    font-family: sans-serif;
+  }
+
+

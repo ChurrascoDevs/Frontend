@@ -1,0 +1,48 @@
+body {
+    background-color: #D2C8BF;
+  }
+  
+
+.admin-info {
+    border: 1px solid #F7A74A;
+    border-radius: 5px;
+    padding: 20px;
+    font-family: sans-serif;
+  }
+
+.admin-info h2{
+    background-color:#E3DED8;
+    border-radius: 5px;
+    padding: 20px;
+}
+  
+.user-registro{
+    border: 1px solid #F7A74A;
+    border-radius: 5px;
+    padding: 20px;
+    font-family: sans-serif;
+  }
+
+.user-registro h2{
+    background-color:#E3DED8;
+    border-radius: 5px;
+    padding: 20px;
+  }
+
+.form-registro{
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.admin-info-box{
+    background-color: #E3DED8;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.register-button{
+    background-color: #F7A74A;
+    color: black;
+  }
+

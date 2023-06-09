@@ -1,0 +1,43 @@
+.user-image {
+  max-width: 100%;
+}
+
+.user-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.user-name {
+  margin-top: 0;
+}
+
+.profile-data {
+  margin-top: 1rem;
+}
+
+.profile-data p {
+  margin-bottom: 0;
+}
+
+.text-right{
+  text-align: -webkit-center;
+}
+
+.accordion-button {
+  background-color: #F5F5F5 !important;
+}
+
+.accordion-item {
+  border-color: #F7A74A;
+  border-width: 2px;
+
+}
+
+.acordion-header {
+  text-align-last: center;
+}
+
+.accordion-body {
+  background-color: #f9f8f7 !important;
+}

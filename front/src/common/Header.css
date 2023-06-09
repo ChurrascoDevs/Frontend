@@ -1,3 +1,33 @@
+.navbar-custom {
+  padding: 00px;
+  height: 100%;
+  color: #012840 !important;
+  background-color: #F5F5F5 !important;
+  z-index: 9999;
+  box-shadow: 0px 1px 10px 0px;
+}
+
+.navbar-collapse {
+  background-color: #F5F5F5 ;
+  text-align: center;
+}
+
+.navbar-toggler {
+  margin: 2vw;
+}
+
+.nav-link {
+  position: relative;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  color: #012840;
+}
 .nav-link:hover {
-    background-color: #F7A74A;
-  }
+  background-color: #ffffff00 !important;
+  color: #F7A74A;
+}
+
+.nav-link.active {
+  color: #0B70AE;
+  background-color:#ffd4bc; /* Agrega el color de fondo deseado aquí */
+}

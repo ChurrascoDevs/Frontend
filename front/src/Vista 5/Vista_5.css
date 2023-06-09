@@ -1,0 +1,42 @@
+.tabla-con-fondo {
+    background-color: #FEF4E3; /* Color de fondo deseado */
+    grid-column: 1 / span 12; /* La tabla ocupa 12 columnas del grid */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .tabla-container {
+    grid-column: 1 / span 12;
+    display: flex;
+    justify-content: center;
+  }
+
+  
+  /* Si prefieres usar espacio en relleno en lugar de margen */
+  .botones-container {
+    padding-top: 10px; /* Ajusta la cantidad de espacio en relleno superior según tus necesidades */
+  }
+  .botones-container button {
+    margin-right: 10px; /* Ajusta la cantidad de margen derecho entre los botones según tus necesidades */
+  }
+
+  .button_Solicitar {
+    background-color: #F7A74A !important;;
+    color: white !important;
+    border-color: green !important;
+}
+
+
+  /* Estilos para un checkbox con una clase específica */
+.mi-checkbox {
+    /* Cambiar el tamaño del checkbox */
+    width: 30px;
+    height: 30px;
+  }
+  
+  /* Cambiar el tamaño del icono del checkbox */
+  .mi-checkbox::before {
+    /* Cambiar el tamaño del icono del checkbox */
+    font-size: 18px;
+    line-height: 20px;
+  }

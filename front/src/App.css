@@ -2,6 +2,16 @@
   text-align: center;
 }
 
+body {
+  background-color: #D2C8BF;
+  color: #012840 !important;
+}
+
+.tabla-con-fondo {
+  background-color: #FEF4E3; /* Color de fondo deseado */
+  grid-column: 1 / span 12; /* La tabla ocupa 12 columnas del grid */
+  margin: 0 auto; /* Centra la tabla horizontalmente en su contenedor */
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -21,7 +31,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #012840 !important;
 }
 
 .App-link {
@@ -35,4 +45,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.login-button{
+  background-color: #8b4a00;
+  color: #012840 !important;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12 columnas en el grid */
+  gap: 10px; /* espacio entre las celdas del grid */
+  justify-items: center; /* Centra horizontalmente el contenido en las celdas */
 }

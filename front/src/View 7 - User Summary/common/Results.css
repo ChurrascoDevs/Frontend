@@ -1,0 +1,147 @@
+.results-container {
+  background-color: #E3DED8;
+  padding: 2vh;
+  border-radius: 10px;
+}
+
+.header-results {
+  text-align: -webkit-center;
+}
+
+.item-container {
+  display: flex;
+  flex-direction: column;
+  /*height: 100%;*/
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.item-image {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: calc(100% / 3 * 2);
+  align-self: center;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.item-actions {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.positive-action {
+  background-color: #53C138;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.negative-action {
+  background-color: #DE4040;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.no-item-selected {
+  margin-top: 20px;
+  font-style: italic;
+}
+
+.item-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  background-color: #FEF4E3;
+}
+
+.list-item:hover {
+  filter: saturate(2);
+}
+
+.list-item.selected {
+  background-color: #ffe1af;
+}
+
+.list-item-image {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+}
+
+.list-item-name {
+  margin: 0;
+  font-weight: bold;
+}
+
+.pagination {
+  align-self: center;
+  padding-block: 1vw;
+}
+
+.header-doc-list {
+  padding-inline: 10px;
+}
+
+.details-user-data-divider {
+  border-top: groove;
+}
+
+.state-doc-badge {
+  margin-left: 10px;
+}
+
+
+.mi-paginacion .page-link {
+  color: #012840; /* color del texto de los números de página */
+  background-color: #f5f5f5; /* color de fondo de los números de página no activos */
+  border-color: #f5f5f5; /* color del borde de los números de página no activos */
+}
+
+.mi-paginacion .page-link:hover,
+.mi-paginacion .page-link:focus {
+  color: #012840; /* color del texto de los números de página al pasar el cursor o al hacer clic */
+  background-color: #f5f5f5; /* color de fondo de los números de página al pasar el cursor o al hacer clic */
+  border-color: #f5f5f5; /* color del borde de los números de página al pasar el cursor o al hacer clic */
+}
+
+.mi-paginacion .page-item.active .page-link {
+  color: #f5f5f5; /* color del texto del número de página activo */
+  background-color: #f09328; /* color de fondo del número de página activo */
+  border-color: #f09328; /* color del borde del número de página activo */
+}
+
+.mi-paginacion .page-item.disabled .page-link {
+  color: #012840; /* color del texto de los números de página deshabilitados */
+  background-color: #f5f5f5; /* color de fondo de los números de página deshabilitados */
+  border-color: #f5f5f5; /* color del borde de los números de página deshabilitados */
+}
+
+.mi-paginacion .page-link:focus {
+  box-shadow: none; /* eliminar la sombra al hacer clic */
+}
+
+.mi-paginacion .page-link::before {
+  content: "";
+}
