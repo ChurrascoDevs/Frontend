@@ -15,7 +15,6 @@ const getCollection = async (): Promise<Collection<Document>> => {
   return collection;
 };
 
-// Crear un nuevo documento
 router.post('/create', async (req: Request, res: Response) => {
     try {
       const document: OptionalId<Document> = req.body;
@@ -25,8 +24,10 @@ router.post('/create', async (req: Request, res: Response) => {
   
       let createdDocument: Document | null = null;
       if (createdDocumentId) {
-        createdDocument = { _id: createdDocumentId, ...document };
+        createdDocument = Object.assign({}, document, { _id: createdDocumentId });
       }
+  
+      console.log('Created Document:', createdDocument);
   
       res.status(201).json(createdDocument);
     } catch (error) {
@@ -34,6 +35,8 @@ router.post('/create', async (req: Request, res: Response) => {
       res.status(500).json({ error: 'An error occurred while creating the document' });
     }
   });
+  
+  
   
   
   
