@@ -1,4 +1,4 @@
-import { ObjectId, OptionalId, Filter, UpdateFilter, Collection } from 'mongodb';
+import { ObjectId, OptionalId, Filter, UpdateFilter, Collection, FindOptions } from 'mongodb';
 import { Router, Request, Response } from 'express';
 import { getDatabase } from '../database';
 import Document from './Document';
@@ -15,32 +15,30 @@ const getCollection = async (): Promise<Collection<Document>> => {
   return collection;
 };
 
-router.post('/create', async (req: Request, res: Response) => {
-    try {
-      const document: OptionalId<Document> = req.body;
-      const collection = await getCollection();
-      const result = await collection.insertOne(document);
-      const createdDocumentId = result.insertedId;
-  
-      let createdDocument: Document | null = null;
-      if (createdDocumentId) {
-        createdDocument = Object.assign({}, document, { _id: createdDocumentId });
-      }
-  
-      console.log('Created Document:', createdDocument);
-  
-      res.status(201).json(createdDocument);
-    } catch (error) {
-      console.error('Error creating document:', error);
-      res.status(500).json({ error: 'An error occurred while creating the document' });
+router.post('/', async (req: Request, res: Response) => {
+  try {
+    console.log('body',req.body);
+    const document: Document = req.body;
+    document.fecha_registro = new Date();
+    console.log('Created Document:', document);
+    const collection = await getCollection();
+    const result = await collection.insertOne(document);
+    const createdDocumentId = result.insertedId;
+
+    let createdDocument: Document | null = null;
+    if (createdDocumentId) {
+      createdDocument = Object.assign({}, document, { _id: createdDocumentId });
     }
-  });
-  
-  
-  
-  
-  
-  
+
+    console.log('Created Document:', createdDocument);
+
+    res.status(201).json(createdDocument);
+  } catch (error) {
+    console.error('Error creating document:', error);
+    res.status(500).json({ error: 'An error occurred while creating the document' });
+  }
+});
+
 
 // Obtener un documento por su ID
 router.get('/:id', async (req: Request, res: Response) => {
@@ -123,4 +121,23 @@ router.post('/search', async (req: Request, res: Response) => {
   }
 });
 
+// Obtener los últimos X libros ingresados
+router.get('/ultimos/:count', async (req: Request, res: Response) => {
+  try {
+    const count: number = parseInt(req.params.count);
+    const collection: Collection<Document> = await getCollection();
+    const filter: Filter<Document> = { categoria: 'libros' };
+    const options: FindOptions<Document> = {
+      sort: { fecha_registro: -1 },
+      limit: count,
+      projection: {}
+    };
+    const documents: Document[] = await collection.find(filter, options).toArray();
+
+    res.json(documents);
+  } catch (error) {
+    console.error('Error getting latest documents:', error);
+    res.status(500).json({ error: 'An error occurred while getting the latest documents' });
+  }
+});
 export default router;
