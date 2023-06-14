@@ -109,17 +109,42 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 // Buscar documentos según criterios específicos
-router.post('/search', async (req: Request, res: Response) => {
+router.post('/search/:type', async (req: Request, res: Response) => {
   try {
-    const criteria: Partial<Document> = req.body;
-    const collection = await getCollection();
-    const documents = await collection.find(criteria).toArray();
+    const searchType: string = req.params.type;
+    const searchValue: string = req.body.value;
+
+    const collection: Collection<Document> = await getCollection();
+    const filter: Filter<Document> = {};
+
+    switch (searchType) {
+      case 'nombre':
+        filter.titulo = searchValue;
+        break;
+      case 'categoria':
+        filter.categoria = searchValue;
+        break;
+      case 'autor':
+        filter.autor = searchValue;
+        break;
+      case 'anio':
+        filter.anio = parseInt(searchValue);
+        break;
+      // Agrega más casos para otros tipos de búsqueda según tus necesidades
+
+      default:
+        res.status(400).json({ error: 'Invalid search type' });
+        return;
+    }
+
+    const documents: Document[] = await collection.find(filter).toArray();
     res.json(documents);
   } catch (error) {
     console.error('Error searching documents:', error);
     res.status(500).json({ error: 'An error occurred while searching the documents' });
   }
 });
+
 
 // Obtener los últimos X libros ingresados
 router.get('/ultimos/:count', async (req: Request, res: Response) => {
