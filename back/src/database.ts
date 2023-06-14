@@ -1,3 +1,4 @@
+import express from 'express';
 import { MongoClient, Db } from 'mongodb';
 
 const dbUrl = 'mongodb+srv://churrascodev:tl3KOlTJknX9famR@biblioteca.gwpwikv.mongodb.net/?retryWrites=true&w=majority';
@@ -7,7 +8,7 @@ let db: Db;
 
 export const connectDatabase = async (): Promise<void> => {
   try {
-    const client = await MongoClient.connect(dbUrl); //se conecta con el mongodb atlas (servidor que aloja la DB)
+    const client = await MongoClient.connect(dbUrl);
     db = client.db(dbName);
     console.log('Conexión exitosa a MongoDB Atlas');
   } catch (error) {
@@ -22,3 +23,4 @@ export const getDatabase = (): Db => {
   }
   return db;
 };
+

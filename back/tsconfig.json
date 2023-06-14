@@ -10,6 +10,6 @@
     "resolveJsonModule": true,
     "sourceMap": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts","**/*.ts", "src/devolucion/devolver.ts"],
   "exclude": ["node_modules"]
 }
