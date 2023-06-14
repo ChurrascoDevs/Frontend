@@ -19,10 +19,10 @@ router.put("/:idEjemplar"  , async (req, res) => {
     let db = getDatabase();
     const collection = db.collection("Loans");
     collection.findOneAndUpdate(
-        { idEjemplar, fechaSolicitud: { $exists: true }, fechaPrestamo: { $exists: false } },
+        { idEjemplar },
         { $set: { fechaDevolucion: new Date() } },
       );
-
+    
     res.send(results).status(200);
 })
 
