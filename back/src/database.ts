@@ -1,7 +1,7 @@
 import { MongoClient, Db } from 'mongodb';
 
 const dbUrl = 'mongodb+srv://churrascodev:tl3KOlTJknX9famR@biblioteca.gwpwikv.mongodb.net/?retryWrites=true&w=majority';
-const dbName = 'Biblioteca';
+const dbName = 'BibliotecaDB';
 
 let db: Db;
 

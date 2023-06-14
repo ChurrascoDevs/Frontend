@@ -1,10 +1,14 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { connectDatabase } from './database';
+import documentRouter from './document/Documents_Controller';
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
+
+// Rutas para los documentos
+app.use('/documents', documentRouter);
 
 // Conexión a la base de datos
 connectDatabase()

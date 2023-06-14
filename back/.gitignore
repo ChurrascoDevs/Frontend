@@ -12,3 +12,4 @@ node_modules/
 
 # Ignora archivos de configuración SASS
 .sass-cache
+dist/
