@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import documentRouter from './document/Documents_Controller';
+import EjemplarRouter from './Ejemplar/Ejemplar._Controller'
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { connectDatabase, getDatabase } from './database';
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Rutas para los documentos
 app.use('/documents', documentRouter);
+app.use('/ejemplares', EjemplarRouter);
 
 // Conexión a la base de datos
 connectDatabase()
