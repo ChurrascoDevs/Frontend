@@ -1,62 +1,14 @@
-import express, { request, response } from 'express';
-import { connectDatabase, getDatabase } from './database';
+import express from 'express';
+import { connectDatabase} from './database';
 import { loginController, registerController, deleteUserController } from './users/userController';
-import { buildSchema } from 'graphql';
 import { graphqlHTTP } from 'express-graphql';
+import {schema, root} from './schema'
+
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-
-// Definir el esquema GraphQL
-const schema = buildSchema(`
-  type User {
-    id: ID!
-    username: String!
-    password: String!
-    rut: String!
-    rol: String!
-    nombre: String!
-    apellido: String!
-    direccion: String!
-    email: String!
-    telefono: String!
-    activo: Boolean
-    fecha_registro: String!
-  }
-
-  type Query {
-    user(id: ID!): User
-    users: [User]
-  }
-
-  type Mutation {
-    registerUser(username: String!, password: String!, rut: String!, rol: String!,
-       nombre: String!, apellido: String!, direccion: String!, email: String!, telefono: String!, activo: Boolean, fecha_registro: String!): User
-    loginUser(username: String!, password: String!): User
-    deleteUser(id: ID!): User
-  }`
-  );
-
-// Resolvers de GraphQL
-const root = {
-  registerUser: async ({ name, email, password }: { name: string, email: string, password: string }) => {
-    // Implementa la lógica correspondiente en userController.ts
-    // Llama a la función adecuada y devuelve el resultado
-    const user = await registerController(request, response);
-    return user;
-  },
-  loginUser: async ({ email, password }: { email: string, password: string }) => {
-    const user = await loginController(request, response);
-    return user;
-  },
-  deleteUser: async ({ id }: { id: string }) => {
-    const user = await deleteUserController(request, response);
-    return user;
-  },
-};
-
 
 // Conexión a la base de datos
 connectDatabase()
