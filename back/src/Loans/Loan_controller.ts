@@ -17,7 +17,7 @@ const getCollection = async (): Promise<Collection<Loan>> => {
 };
 
 //Global error handler - TODO: inprove with includes substring intead exact match
-function HandleErrorCode(e: Error, collectionName: String, res: Response){
+function HandleErrorCode(e: Error, collectionName: String, sourceError: String, res: Response){
     let HTTPcode = null;
     switch (e.message) {
         case "invalid query syntax":
@@ -33,11 +33,11 @@ function HandleErrorCode(e: Error, collectionName: String, res: Response){
             break;
     }
     //Print in server - TODO save errors in DB
-    console.error("Error in collection: ", collectionName);
+    console.error("Error in collection, function: ", collectionName + "(" + sourceError +")");
     console.error("Details: ", HTTPcode, " - ", e.message);
 
     //final response
-    return res.status(HTTPcode).json({ status: 'error', message: String(e)+" - "+ collectionName })
+    return res.status(HTTPcode).json({ status: 'error', message: String(e), source: collectionName + "(" + sourceError +")" })
 }
 
 // === GETS's ===
@@ -49,7 +49,7 @@ router.get('/getAll', async (req, res) => {
 
         return res.status(200).json({content: all_loans});
     } catch (e: any){
-        return HandleErrorCode(e, collectionNameDB, res);
+        return HandleErrorCode(e, collectionNameDB, "getAll" , res);
     }
 });
 
@@ -62,7 +62,7 @@ router.get('/get/:id', async (req, res) => {
 
         return res.status(200).json({content: loanX})
     } catch (e: any){
-        return HandleErrorCode(e, collectionNameDB, res);
+        return HandleErrorCode(e, collectionNameDB, "get/:id" , res);
     }
 });
 
@@ -82,7 +82,7 @@ router.get('/getAllState/:state', async (req, res) => {
 
         return res.status(200).json({content: requested_loans});
     } catch (e: any){
-        return HandleErrorCode(e, collectionNameDB, res);
+        return HandleErrorCode(e, collectionNameDB, "getAllState/:state" , res);
     }
 });
 
@@ -94,7 +94,7 @@ router.get('/getAllUser/:userId', async (req, res) => {
         const user_loans = await Loans.find({idUsuario: userId}).toArray();
         return res.status(200).json({content: user_loans});
     } catch (e: any){
-        return HandleErrorCode(e, collectionNameDB, res);
+        return HandleErrorCode(e, collectionNameDB, "getAllUser/:userId" , res);
     }
 });
 
@@ -107,7 +107,7 @@ router.get('/getAllCopyHistory/:documentId', async (req, res) => {
         const user_loans = await Loans.find({idEjemplar: documentId}).toArray();
         return res.status(200).json({content: user_loans});
     } catch (e: any){
-        return HandleErrorCode(e, collectionNameDB, res);
+        return HandleErrorCode(e, collectionNameDB, "getAllCopyHistory/:documentId" , res);
     }
 });
 
@@ -129,7 +129,7 @@ router.post('/new', async (req, res) => {
             throw new Error("Internal DB error");
         }
     } catch (e: any){
-        return HandleErrorCode(e, collectionNameDB, res);
+        return HandleErrorCode(e, collectionNameDB, "new" , res);
     }
 });
 
@@ -169,7 +169,7 @@ router.patch('/update', async (req, res) => {
         }
 
     } catch (e: any){
-        return HandleErrorCode(e, collectionNameDB, res);
+        return HandleErrorCode(e, collectionNameDB, "update" , res);
     }
 });
 
@@ -188,7 +188,7 @@ router.delete('/delete/:id', async (req, res) => {
         }
 
     } catch (e: any){
-        return HandleErrorCode(e, collectionNameDB, res);
+        return HandleErrorCode(e, collectionNameDB, "delete" , res);
     }
 });
 
