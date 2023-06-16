@@ -1,6 +1,7 @@
 import express from 'express';
 import { connectDatabase} from './database';
 import { loginController, registerController, deleteUserController } from './users/userController';
+import documentRouter from './document/Documents_Controller';
 import { graphqlHTTP } from 'express-graphql';
 import {schema, root} from './schema'
 
