@@ -1,119 +1,88 @@
-import express, { Request, Response } from 'express';
-import documentRouter from './document/Documents_Controller';
-import EjemplarRouter from './Ejemplar/Ejemplar._Controller'
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { connectDatabase, getDatabase } from './database';
-import { IntegerType } from 'mongodb';
+import express from 'express';
+import { connectDatabase } from './database';
+import { graphqlHTTP } from 'express-graphql';
+import { schema, root } from './Document/schema';
+import {
+  updateDocumentMiddleware,
+  getLatestDocumentsControllerMid,
+  createDocumentControllerMid,
+  getDocumentControllerMid,
+  deleteDocumentControllerMid,
+  searchDocumentsControllerMid,
+  getAllDocumentsControllerMid
+
+} from './Document/Documents_Controller';
+
+import {
+  getEjemplares,
+  getEjemplaresByDocumento,
+  createEjemplar,
+  getEjemplarById,
+  updateEjemplar,
+  deleteEjemplar
+} from './Ejemplar/Ejemplar_Controller';
 
 const app = express();
 const port = 3000;
-//La secret_key se usa para el tema de los token de autentificacion, puede ser cualquier adena de caracteres,
-//pero hay que mantenerla segura
-const SECRET_KEY = 'nBfvoJd4Qfs1bTVACHWomYcl1Vdw9ZV8';
 
 app.use(express.json());
-
-// Rutas para los documentos
-app.use('/documents', documentRouter);
-app.use('/ejemplares', EjemplarRouter);
 
 // Conexión a la base de datos
 connectDatabase()
   .then(() => {
-
     // Configuración de rutas y lógica adicional
-    app.get('/', (req, res) => {
-      res.send('¡Hola, mundo!');
-    });
 
-    //Register User POST
-    app.post('/register', (req, res) => {
-      const db = getDatabase();
+    // Ruta para GraphQL
+    app.use('/graphql', graphqlHTTP({
+      schema,
+      rootValue: root,
+      graphiql: true,
+    }));
 
-      const { username, password } = req.body;
-      
-      interface User {
-        username: string;
-        password: string;
-      }
+    // Crear Documento
+    app.post('/documents', createDocumentControllerMid);
 
-      async function run() {
-        try {
-          //Lista de usuarios (Documentos) de la base de datos (DB)
-          const Users = db.collection<User>("Users");
+    // Obtener un Documento por su ID
+    app.get('/documents/:id', getDocumentControllerMid);
 
-          // Verificar si el usuario ya existe en la base de datos
-          const existingUser = await Users.findOne({ username });
-          if (existingUser) {
-            return res.status(409).json({ message: 'El usuario ya existe' });
-          }
-          // Encriptar la contraseña
-          const hashedPassword = await bcrypt.hash(password, 10);
+    // Actualizar un Documento
+    app.put('/documents/:id', updateDocumentMiddleware);
 
-          //Crea el nuevo usuario con la contraseña hasheada
-          const result = await Users.insertOne({
-            username: username,
-            password: hashedPassword,
-          });
-          console.log(`A document was inserted with the _id: ${result.insertedId}`);
-          return res.status(200).json({ status: 'success'})
-        } catch (e: any){
-          console.log(e);
-          return res.status(409).json({ status: 'error', message: String(e) })
-        }
-      }
-      //Corre la funcion Asincrona
-      run().catch(console.dir);
-    });
+    // Eliminar un Documento
+    app.delete('/documents/:id', deleteDocumentControllerMid);
 
-    //Login User POST
-    app.post('/login', (req, res) => {
-      const db = getDatabase();
+    // Obtener todos los Documentos
+    app.get('/documents', getAllDocumentsControllerMid);
 
-      const { username, password } = req.body;
-  
-      interface User {
-        username: string;
-        password: string;
-      }
+    // Buscar Documentos según criterios específicos
+    app.post('/documents/search/:type', searchDocumentsControllerMid);
 
-      async function run() {
-        try {
-          const Users = db.collection<User>("Users");
-          const user = await Users.findOne({username});
-          console.log(user);
-
-          //Por si no se enuentra el usuario o este es nullo
-          if (!user) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
-          }
-
-          // Verificar la contraseña
-          if (!bcrypt.compareSync(password, user.password)) {
-            return res.status(401).json({ message: 'Contraseña incorrecta' });
-          }
-
-          // Generar un token de acceso
-          const token = jwt.sign({ id: user._id }, SECRET_KEY);
-
-          //Se envia una respuesta de que salio todo bien, junto con el token
-          return res.status(200).json({ status: 'success', token: token})
-
-        } catch (e: any){
-          console.log(e);
-          return res.status(409).json({ status: 'error', message: String(e) })
-        }
-      }
-      //Corre la funcion Asincrona
-      run().catch(console.dir);
-    })
-
+    // Obtener los últimos X libros ingresados
+    app.get('/documents/latest/:count', getLatestDocumentsControllerMid);
 
     // Iniciar el servidor
     app.listen(port, () => {
       console.log(`Servidor corriendo en http://localhost:${port}`);
     });
+
+  // Obtener todos los Ejemplares
+    app.get('/ejemplares', getEjemplares);
+
+  // Obtener todos los Ejemplares de un Documento
+    app.get('/ejemplares/:idDocumento', getEjemplaresByDocumento);
+
+  // Crear un nuevo Ejemplar
+    app.post('/ejemplares/:idDocumento', createEjemplar);
+
+  // Obtener un Ejemplar por su ID
+    app.get('/ejemplares/buscar_ejemplar/:id', getEjemplarById);
+
+  // Actualizar un Ejemplar
+    app.put('/ejemplares/:id', updateEjemplar);
+
+// Eliminar un Ejemplar
+    app.delete('/ejemplares/:id', deleteEjemplar);
+    
   })
   .catch((error) => {
     console.error('Error al conectar a la base de datos:', error);
