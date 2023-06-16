@@ -16,9 +16,14 @@ import {
   updateEjemplar,
   deleteEjemplar
 } from './Ejemplar/Ejemplar_Controller';
+import { 
+  loginController, 
+  registerController, 
+  deleteUserController 
+} from './users/userController';
+
 import express from 'express';
 import { connectDatabase} from './database';
-import { loginController, registerController, deleteUserController } from './users/userController';
 import loansRouter from './loans/Loan_controller';
 import { graphqlHTTP } from 'express-graphql';
 import {schema, root} from './schema'

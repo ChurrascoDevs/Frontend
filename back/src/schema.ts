@@ -27,6 +27,11 @@ import {
   getAllLoansController, newLoanController, updateLoanController,
   getLoanByIDController, getLoansByStateController, getLoansByUserIDController,
   getLoansByDocumentIDController, deleteLoanController} from './loans/Loan_controller_gql';
+import {
+  createLog,
+  getLog,
+  getAllLogs
+} from './log/Log_Controller';
 import { request, response } from 'express';
 
 // Definir el esquema GraphQL
@@ -66,6 +71,13 @@ type User {
     ubicacion: String!
     fecha_registro: String!
   }
+  type Log {
+    _id: ID
+    tipo_metodo: String! 
+    tipo_log: String! 
+    descripcion: String
+    fecha_registro: String!
+  }
 
   type Loan {
     _id: ID!
@@ -102,6 +114,10 @@ type User {
     getLoansByState(estado: String!):[Loan]!
     getLoansByUserID(idUsuario: String!):[Loan]!
     getLoansByDocumentID(idEjemplar: String!):[Loan]!
+
+    # Logs
+    getlog(id: String!): Log
+    logs: [Log]
   }
 
   type Mutation {
@@ -128,6 +144,12 @@ type User {
     newLoan(idUsuario: String!, idEjemplar: String!, tipoPrestamo: String!): String!
     updateLoan(idPrestamo:String!, tipoActualizacion: String!, fechaDevolucion: String): String!
     deleteLoan(_id: ID!): String!
+    
+    # Logs
+    createLog(tipo_metodo: String!,
+      tipo_log: String!, 
+      descripcion: String,
+      fecha_registro: String): Log
   }`
 );
 
@@ -198,6 +220,16 @@ export const root = {
       const ejemplar = await getEjemplarByIdQL(id);
       console.log("fecha:",ejemplar);
       return ejemplar;
+    },
+
+    // --- QUERY LOGS ---
+    getlog: async ({ id }: { id: string }) => {
+      const log = await getLog(id);
+      return log;
+    },
+    logs: async () => {
+        const logs = await getAllLogs();
+        return logs
     },
 
 
@@ -320,5 +352,20 @@ export const root = {
     deleteLoan: async ({ _id }: { _id:string }) => {
       const result = await deleteLoanController(_id);
       return result;
-    }
+    },
+
+    // --- MUTATION LOGS ---
+    createLog: async (
+        { tipo_metodo, tipo_log, descripcion, fecha_registro }: any,
+        request: Request,
+        response: Response
+      ) => {
+        const log = await createLog({
+          tipo_metodo, //post, put, delete
+          tipo_log, //documento, usuario, prestamo
+          descripcion,
+          fecha_registro: new Date()
+        });
+        return log;
+      }
 };

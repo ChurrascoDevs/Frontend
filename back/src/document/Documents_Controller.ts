@@ -38,7 +38,7 @@ const createDocumentControllerMid = async (req: Request, res: Response) => {
   try {
     const document: Document = req.body;
     document.fecha_registro = new Date();
-    console.log('Created Document:', document);
+    //console.log('Created Document:', document);
     const collection = await getCollection();
     const result = await collection.insertOne(document);
     const createdDocumentId = result.insertedId;
@@ -272,14 +272,14 @@ const getLatestDocumentsController = async (count:number) => {
   try {
     const collection: Collection<Document> = await getCollection();
     const filter: Filter<Document> = { categoria: 'libros' };
-    console.log("count",count);
+    //console.log("count",count);
     const options: FindOptions<Document> = {
       sort: { fecha_registro: -1 },
       limit: count,
       projection: {}
     };
     const documents: Document[] = await collection.find(filter, options).toArray();
-    console.log(documents)
+    //console.log(documents)
     return documents;
   } catch (error) {
     console.error('Error getting latest Documents:', error);
