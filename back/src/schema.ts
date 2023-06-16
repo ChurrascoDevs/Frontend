@@ -23,6 +23,8 @@ import {
   getAllLogs
 } from './log/Log_Controller';
 import { request, response } from 'express';
+import { ObjectId } from 'mongodb';
+import { getDatabase } from './database';
 
 // Definir el esquema GraphQL
 export const schema = buildSchema(`
@@ -79,6 +81,7 @@ export const schema = buildSchema(`
     getEjemplares: [Ejemplar]
     getlog(id: String!): Log
     logs: [Log]
+    devolver(idEjemplar: String!): Boolean
   }
 
   type Mutation {
@@ -103,6 +106,19 @@ export const schema = buildSchema(`
 
 // Resolvers de GraphQL
 export const root = {
+  devolver: async (args: any) => {
+    const idEjemplar = args.idEjemplar;
+    
+    let db = getDatabase();
+    const collection = db.collection("Loans");
+    let result = await collection.updateOne({_id: new ObjectId(idEjemplar) }, { $set: {fechaDevolucion: new Date()} });
+    if( result.modifiedCount >= 1 ){
+      return true;
+    }
+
+    return false;
+  },
+
     registerUser: async (args: any) => {
       // Implementa la lógica correspondiente en userController.ts
       // Llama a la función adecuada y devuelve el resultado
