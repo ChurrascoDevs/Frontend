@@ -199,7 +199,7 @@ const getAllDocumentsControllerMid = async (req: Request, res: Response) => {
 };
 
 // Buscar Documentos según criterios específicos
-const searchDocumentsController = async (req: Request, res: Response) => {
+const searchDocumentsController = async (req: Request) => {
   try {
     const searchType: string = req.params.type;
     const searchValue: string = req.body.value;
@@ -220,11 +220,6 @@ const searchDocumentsController = async (req: Request, res: Response) => {
       case 'anio':
         filter.anio = parseInt(searchValue);
         break;
-      // Agrega más casos para otros tipos de búsqueda según tus necesidades
-
-      default:
-        res.status(400).json({ error: 'Invalid search type' });
-        return;
     }
 
     const documents: Document[] = await collection.find(filter).toArray();
