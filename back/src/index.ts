@@ -1,14 +1,18 @@
 import express from 'express';
 import { connectDatabase} from './database';
 import { loginController, registerController, deleteUserController } from './users/userController';
+import loansRouter from './loans/Loan_controller';
 import { graphqlHTTP } from 'express-graphql';
-import {schema, root} from './schema'
+import {schema, root} from './schemaLoans'
 
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
+
+// Rutas para los documentos vía normal (no graphql)
+app.use('/Loans', loansRouter);
 
 // Conexión a la base de datos
 connectDatabase()
