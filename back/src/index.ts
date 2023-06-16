@@ -1,7 +1,4 @@
-import express from 'express';
-import { connectDatabase } from './database';
-import { graphqlHTTP } from 'express-graphql';
-import { schema, root } from './Document/schema';
+
 import {
   updateDocumentMiddleware,
   getLatestDocumentsControllerMid,
@@ -21,6 +18,12 @@ import {
   updateEjemplar,
   deleteEjemplar
 } from './Ejemplar/Ejemplar_Controller';
+import express from 'express';
+import { connectDatabase} from './database';
+import { loginController, registerController, deleteUserController } from './users/userController';
+import { graphqlHTTP } from 'express-graphql';
+import {schema, root} from './schema'
+
 
 const app = express();
 const port = 3000;
@@ -39,6 +42,14 @@ connectDatabase()
       graphiql: true,
     }));
 
+    // Register User POST
+    app.post('/register', registerController);
+    //Login User POST
+    app.post('/login', loginController);
+    
+    //Delete User DELETE
+    app.delete('/delete/user/:id', deleteUserController);
+
     // Crear Documento
     app.post('/documents', createDocumentControllerMid);
 
@@ -54,11 +65,16 @@ connectDatabase()
     // Obtener todos los Documentos
     app.get('/documents', getAllDocumentsControllerMid);
 
+  
+
+
+
     // Buscar Documentos según criterios específicos
     app.post('/documents/search/:type', searchDocumentsControllerMid);
 
     // Obtener los últimos X libros ingresados
     app.get('/documents/latest/:count', getLatestDocumentsControllerMid);
+
 
     // Iniciar el servidor
     app.listen(port, () => {
