@@ -16,23 +16,28 @@ const getCollection = async (): Promise<Collection<Log>> => {
 };
 
 const createLog = async (log: Log) => {
-    try {
-      log.fecha_registro = new Date();
-      const collection = await getCollection();
-      const result = await collection.insertOne(log);
-      const createdLogId = result.insertedId;
-  
-      let createdLog: Log | null = null;
-      if (createdLogId) {
-        createdLog = Object.assign({}, log, { _id: createdLogId });
-      }
-  
-      return createdLog;
-    } catch (error) {
-      console.error('Error creating Log:', error);
-      throw new Error('An error occurred while creating the Log');
+  try {
+    log.fecha_registro = new Date();
+    
+    if (!log.descripcion) {
+      log.descripcion = null;
     }
-  };
+
+    const collection = await getCollection();
+    const result = await collection.insertOne(log);
+    const createdLogId = result.insertedId;
+
+    let createdLog: Log | null = null;
+    if (createdLogId) {
+      createdLog = Object.assign({}, log, { _id: createdLogId });
+    }
+
+    return createdLog;
+  } catch (error) {
+    console.error('Error creating Log:', error);
+    throw new Error('An error occurred while creating the Log');
+  }
+};
 
 const getLog = async (id: string) => {
     try {

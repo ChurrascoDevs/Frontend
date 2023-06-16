@@ -11,7 +11,7 @@ export const schema = buildSchema(`
         _id: ID
         tipo_metodo: String! 
         tipo_log: String! 
-        descripcion: String!
+        descripcion: String
         fecha_registro: String!
     }
 
@@ -23,7 +23,7 @@ export const schema = buildSchema(`
     type Mutation {
         createLog(tipo_metodo: String!,
             tipo_log: String!, 
-            descripcion: String!,
+            descripcion: String,
             fecha_registro: String): Log
     }
     `);
