@@ -7,7 +7,7 @@ El frontend se encuentra en la carpeta front y puede ser ejecutado mediante:
 npm start
 ```
 
-##Backend:
+## Backend:
 El backend se encuentra en la carpeta /back y se puede ejecutar mediante:
 
 ```
