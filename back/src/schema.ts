@@ -34,13 +34,13 @@ export const schema = buildSchema(`
 
 // Resolvers de GraphQL
 export const root = {
-    registerUser: async ({ name, email, password }: { name: string, email: string, password: string }) => {
+    registerUser: async (args: any) => {
       // Implementa la lógica correspondiente en userController.ts
       // Llama a la función adecuada y devuelve el resultado
       const user = await registerController(request, response);
       return user;
     },
-    loginUser: async ({ email, password }: { email: string, password: string }) => {
+    loginUser: async (args: any) => {
       const user = await loginController(request, response);
       return user;
     },
