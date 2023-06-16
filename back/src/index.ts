@@ -3,7 +3,7 @@ import { connectDatabase} from './database';
 import { loginController, registerController, deleteUserController } from './users/userController';
 import loansRouter from './loans/Loan_controller';
 import { graphqlHTTP } from 'express-graphql';
-import {schema, root} from './schemaLoans'
+import {schema, root} from './schema' //schemaLoans to change testing
 
 
 const app = express();
