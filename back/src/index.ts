@@ -8,7 +8,7 @@ import {
   searchDocumentsControllerMid,
   getAllDocumentsControllerMid
 
-} from './Document/Documents_Controller';
+} from './document/Documents_Controller';
 
 import {
   getEjemplares,
@@ -18,6 +18,7 @@ import {
   updateEjemplar,
   deleteEjemplar
 } from './Ejemplar/Ejemplar_Controller';
+
 import express from 'express';
 import { connectDatabase} from './database';
 import { loginController, registerController, deleteUserController } from './users/userController';
