@@ -10,6 +10,9 @@ const port = 3000;
 
 app.use(express.json());
 
+// Rutas para los documentos
+app.use('/documents', documentRouter);
+
 // Conexión a la base de datos
 connectDatabase()
   .then(() => {
