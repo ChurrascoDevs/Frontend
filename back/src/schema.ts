@@ -33,6 +33,8 @@ import {
   getAllLogs
 } from './log/Log_Controller';
 import { request, response } from 'express';
+import { ObjectId } from 'mongodb';
+import { getDatabase } from './database';
 
 // Definir el esquema GraphQL
 export const schema = buildSchema(`#graphql
@@ -107,6 +109,7 @@ type User {
     getEjemplarById(id: ID!): Ejemplar
     getEjemplaresByDocumento(idDocumento: ID!): [Ejemplar]
     getEjemplares: [Ejemplar]
+    devolver(idEjemplar: String!): Boolean
 
     # Loans
     getAllLoans:[Loan]!
@@ -118,6 +121,7 @@ type User {
     # Logs
     getlog(id: String!): Log
     logs: [Log]
+
   }
 
   type Mutation {
@@ -162,7 +166,7 @@ export const root = {
       const result = await userController(_id);
       return result;
     },
-    users: async (req: any, res: any) => {
+    users: async(req: any, res: any) =>{
       const result = await usersController(request, response);
       return result;
     },
@@ -245,7 +249,7 @@ export const root = {
       const user = await registerController(username, password, rol, rut, nombre, apellido, direccion, email, telefono); //cambiar por campos de entrada
       return user;
     },
-    /*loginUser: async (args: any) => { //merge ?
+    /*loginUser: async (args: any) => { //delete in merge ?
       const user = await loginController(request, response);*/
     loginUser: async ({ email, password }: { email: string, password: string }) => {
       const user = await loginController(email, password);
@@ -336,6 +340,16 @@ export const root = {
         console.error('Error deleting Ejemplar:', error);
         return false; // Indica que ocurrió un error durante la eliminación
       }
+    },
+    devolver: async (args: any) => {
+      const idEjemplar = args.idEjemplar;
+      let db = getDatabase();
+      const collection = db.collection("Loans");
+      let result = await collection.updateOne({_id: new ObjectId(idEjemplar) }, { $set: {fechaDevolucion: new Date()} });
+      if( result.modifiedCount >= 1 ){
+        return true;
+      }
+      return false;
     },
 
     // --- MUTAION LOANS ---
