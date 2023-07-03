@@ -76,7 +76,7 @@ export const loginController = async (req: Request, res: Response) => {
 
       //Se envia una respuesta de que salio todo bien, junto con el token
       console.log(user);
-      return res.status(200).json({ status: 'success', token: token, isAdmin: user.isAdmin})
+      return res.status(200).json({ status: 'success', token: token, isAdmin: user.isAdmin, id: user._id})
 
     } catch (e: any){
       console.log(e);

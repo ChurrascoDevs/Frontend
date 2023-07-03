@@ -24,8 +24,10 @@ const Login = ({ onLoginSuccess }: { onLoginSuccess: (isAdminUser: boolean) => v
     })  
     .then(function (response) {
       const isAdminUser = response.data.isAdmin; 
+      const _id = response.data.id
       console.log(`Admin State: ${isAdminUser}`);
       localStorage.setItem('isAdmin', isAdminUser) //Se guarda el valor booleano que indica si es admin en el almacenamiento local
+      localStorage.setItem('id',_id) //id del usuario
       onLoginSuccess(isAdminUser); // Llama a la función onLoginSuccess en el componente padre para actualizar el valor "isAdmin"
       console.log(response);
     })
