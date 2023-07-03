@@ -63,7 +63,7 @@ type User {
     anio: Int!
     edicion: Int!
     categoria: String!
-    tipoMedio: String!
+    Ubicacion: String!
     fecha_registro: String!
   }
   type Ejemplar {
@@ -136,9 +136,9 @@ type User {
 
     # Documents y Ejemplares
     createDocument(tipo: String!, titulo: String!, autor: String!, editorial: String!,
-      anio: Int!, edicion: Int!, categoria: String!, tipoMedio: String!): Document
+      anio: Int!, edicion: Int!, categoria: String!, ubicacion: String!): Document
     updateDocument(id: ID!, tipo: String!, titulo: String!, autor: String!, editorial: String!,
-      anio: Int!, edicion: Int!, categoria: String!, tipoMedio: String!): Document
+      anio: Int!, edicion: Int!, categoria: String!, ubicacion: String!): Document
     deleteDocument(id: ID!): String
     createEjemplar(idDocumento: ID!, estado: String!, ubicacion: String!): Ejemplar
     updateEjemplar(id: ID!, estado: String, ubicacion: String): Ejemplar
@@ -262,7 +262,7 @@ export const root = {
 
     // --- MUTATIONS DOCUMENTS ---
     createDocument: async (
-      { tipo, titulo, autor, editorial, anio, edicion, categoria, tipoMedio }: any,
+      { tipo, titulo, autor, editorial, anio, edicion, categoria, ubicacion }: any,
       request: Request,
       response: Response
     ) => {
@@ -274,13 +274,13 @@ export const root = {
         anio: Number(anio),
         edicion: Number(edicion),
         categoria,
-        tipoMedio,
+        ubicacion,
         fecha_registro: new Date()
       });
       return document;
     },
     updateDocument: async (
-      { id, tipo, titulo, autor, editorial, anio, edicion, categoria, tipoMedio }: any
+      { id, tipo, titulo, autor, editorial, anio, edicion, categoria, ubicacion }: any
     ) => {
       try {
         const document = await updateDocumentController(id, {
@@ -291,7 +291,7 @@ export const root = {
           anio: Number(anio),
           edicion: Number(edicion),
           categoria,
-          tipoMedio
+          ubicacion
         });
         return document;
       } catch (error) {

@@ -38,3 +38,11 @@ input[type="checkbox"] {
   .modal-content {
     background-color: #FEF4E3;
   }
+  .book-cover-image {
+    width: 150px;   
+    height: 200px;  
+    object-fit: cover;
+  }
+
+
+  

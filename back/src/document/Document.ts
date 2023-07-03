@@ -8,9 +8,8 @@ interface Document {
     anio: number;
     edicion: number;
     categoria: string;
-    tipoMedio: string;
+    ubicacion: string; 
     fecha_registro: Date;
-  }
+}
   
-  export default Document;
-  
+export default Document;
