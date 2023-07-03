@@ -5,13 +5,14 @@ import './UserProfile.css';
 
 type userInfo = {
   rol: string;
+  userID: string;
 };
 
-const UserProfile = ({rol}: userInfo) => {
+const UserProfile = ({rol, userID}: userInfo) => {
   const userData = { 
-    id: 12938, rol: rol, 
+    id: userID, rol: rol,
     names: "Nombre Nombre2", lastNames:"Apellido1 Apellido2", rut: "12.3456.789-0",
-    userImage: "https://via.placeholder.com/150", 
+    userImage: `https://placehold.co/150?text=${"Nombre"}`,// "https://via.placeholder.com/150", 
     phone: "+569 1234 5678", email: "Nombre1@example.com", 
     active:"SI", address:"Mi hogar 123" }
 
@@ -27,10 +28,12 @@ const UserProfile = ({rol}: userInfo) => {
         <Accordion.Body>
           <Row>
           <Col xs={2}>
-            <div className="text-right">
+            <div className="text-right rol-image-container">
               <Image src={userData.userImage} roundedCircle fluid /> 
-              {userData.rol==="Bibliotecario"? <Book size={60}/>: 
-              userData.rol==="Administrativo"? <Boxes size={60}/> : <PersonCheck size={60}/>}
+              <div className="overlay">
+                {userData.rol==="Bibliotecario"? <Book size={60}/>: 
+                userData.rol==="Administrativo"? <Boxes size={60}/> : <PersonCheck size={60}/>}
+              </div>
             </div>
           </Col>
           <Col xs={10}>

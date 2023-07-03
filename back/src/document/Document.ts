@@ -7,7 +7,7 @@ interface Document {
     editorial: string;
     anio: number;
     edicion: number;
-    categoria: 'libros' | 'multimedia';
+    categoria: string;
     tipoMedio: string;
     fecha_registro: Date;
   }
