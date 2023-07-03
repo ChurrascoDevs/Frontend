@@ -1,15 +1,22 @@
-import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Cart } from 'react-bootstrap-icons';
 import './Header.css'; 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 
 function Header() {
   const location = useLocation(); // Obtener la ubicación actual de la ruta
+  const navigate = useNavigate();
 
   // Obtener la ruta relativa de la ubicación actual
   const currentPath = location.pathname;
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAdmin');
+    navigate('/');
+  };
+
   return (
     <Navbar bg="light" expand="md" className="navbar-custom mx-0" sticky="top">
       <Container>
@@ -26,7 +33,7 @@ function Header() {
           </Nav>
           <Nav>
             <Nav.Link href="/solicitudes" className="nav-link"><Cart size={25} /></Nav.Link>
-            <Nav.Link href="/" className="nav-link">Cerrar Sesión</Nav.Link>
+            <Nav.Link href="/" className="nav-link" onClick={handleLogout}>Cerrar Sesión</Nav.Link>
             
           </Nav>
         </Navbar.Collapse>

@@ -11,6 +11,7 @@ interface User {
     email: string;
     telefono: string;
     activo: boolean;
+    isAdmin: boolean;
     fecha_registro: Date
   }
   

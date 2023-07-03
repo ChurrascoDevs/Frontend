@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from 'express';
 import { connectDatabase} from './database';
 import { loginController, registerController, deleteUserController } from './users/userController';
@@ -7,9 +8,14 @@ import {schema, root} from './schema'
 
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.use(express.json());
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+}));
+
 
 // Rutas para los documentos
 app.use('/documents', documentRouter);

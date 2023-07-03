@@ -39,6 +39,7 @@ export const registerController = async (req: Request, res: Response) => {
           email: email,
           telefono: telefono,
           activo: true,
+          isAdmin: false,
           fecha_registro: new Date()
         });
         console.log(`A document was inserted with the _id: ${result.insertedId}`);
@@ -75,7 +76,7 @@ export const loginController = async (req: Request, res: Response) => {
 
       //Se envia una respuesta de que salio todo bien, junto con el token
       console.log(user);
-      return res.status(200).json({ status: 'success', token: token})
+      return res.status(200).json({ status: 'success', token: token, isAdmin: user.isAdmin})
 
     } catch (e: any){
       console.log(e);
