@@ -28,7 +28,7 @@ const UserProfile = ({rol, userID}: userInfo) => {
       <Accordion.Item eventKey="0">
         <Accordion.Header className='acordion-header'>
           <Col><h5> Perfil de usuario </h5></Col>
-          <Col><h5> <Badge bg={user.rol==="Cliente biblioteca"? "success" :"primary"}>{user.rol}</Badge></h5></Col>
+          <Col><h5> <Badge bg={rol==="Cliente biblioteca"? "success" :"primary"}>{user.rol}</Badge></h5></Col>
         </Accordion.Header>
         <Accordion.Body>
           <Row>

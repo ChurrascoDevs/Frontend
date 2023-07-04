@@ -145,8 +145,8 @@
   content: "";
 }
 
-tr {
-  display: inline-block;
+.custom_tr {
+  display: inline-table;
   width: 100%;
   margin-right: 10px;
 }

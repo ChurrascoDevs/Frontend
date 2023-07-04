@@ -246,18 +246,18 @@ export function Results({rol, userID, filters}: ResultsProps){
                 <>
                   <Table>
                     <tbody>
-                      <tr>
+                      <tr className="custom_tr">
                         <td><b>Ejemplar:</b> {selectedItem.idEjemplar} ({selectedItem.estadoDoc})</td>
                       </tr>
-                      <tr>
+                      <tr className="custom_tr">
                         <td><b>Categoría:</b> {selectedItem.categoria}</td>
                         <td><b>Ubicacion:</b> {selectedItem.ubicacion}</td>
                       </tr>
-                      <tr>
+                      <tr className="custom_tr">
+                      <td><b>Autor:</b> {selectedItem.autor}</td>
                         <td><b>Edición:</b> {selectedItem.edicion}</td>
-                        <td><b>Autor:</b> {selectedItem.autor}</td>
                       </tr>
-                      <tr className="details-data-divider">
+                      <tr className="details-data-divider custom_tr">
                         <td><b>Rut usuario:</b> {selectedItem.rutUsuario}</td>
                         <td><b>Nombre:</b> {selectedItem.nombreUsuario}</td>
                       </tr>

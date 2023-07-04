@@ -56,6 +56,7 @@ export default function App() {
           <>
             <Route path="catalogo" element={<LibraryCatalog />} />
             <Route path="devolucion" element={<Devolucion/>}> </Route>
+            <Route path="solicitudes" element={<Solicitudes />} />
             <Route path="perfil" element={<GridSystem_ProfileWorkspace></GridSystem_ProfileWorkspace>}> </Route>
             <Route
               path="/*"
