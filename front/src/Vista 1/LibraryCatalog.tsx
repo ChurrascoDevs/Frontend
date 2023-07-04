@@ -1,6 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Container, Row, Col, Card, Form, InputGroup, FormControl, Button, Modal } from "react-bootstrap";
 import './LibraryCatalog.css';
+import axios from 'axios';
+import { FilterLeft } from "react-bootstrap-icons";
+import { SolicitudContext } from './SolicitudContext';
+
+
+interface Book {
+  _id: number;
+  tipo: string;
+  titulo: string;
+  autor: string;
+  editorial: string;
+  anio: string;
+  edicion: string;
+  categoria: string;
+  ubicacion: string;
+  imagen: string;
+  fecha_registro: Date;
+}
+
 
 const LibraryCatalog = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -8,7 +27,13 @@ const LibraryCatalog = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [solicitudes, setSolicitudes] = useState<Book[]>([]);
-  interface Book {
+  //const contextValue = useContext(SolicitudContext);
+  //const { solicitudes, dispatch } = contextValue || {};
+
+//if (!solicitudes || !dispatch) {
+  //throw new Error('useSolicitud debe usarse dentro de un SolicitudProvider');
+//}
+  /*interface Book {
     id: number;
     title: string;
     author: string;
@@ -17,7 +42,8 @@ const LibraryCatalog = () => {
     type: string; 
     edition: string;
     cover: string;
-  }  
+  }*/  
+  
 
 // Función para abrir el modal con el libro seleccionado
 const handleOpenModal = (book: Book) => { // Especifica el tipo de 'book' como 'Book'
@@ -32,8 +58,10 @@ const handleCloseModal = () => {
 };
 
 const handleAddToSolicitud = (book: Book) => {
-  
+  //dispatch({ type: 'add', payload: book });
   setSolicitudes([...solicitudes, book]);
+  console.log("add");
+  console.log(solicitudes);
   handleCloseModal(); // Cerrar el modal después de agregar el libro
 };
 
@@ -62,34 +90,138 @@ const handleAddToSolicitud = (book: Book) => {
     { id: 21, title: "1984", author: "George Orwell ", year: "1949", category: "Ficción distópica", type:"Novela", edition: "Primera edición",cover: "https://via.placeholder.com/150" },
   ];
 
+  //let booksArray: Book[] = [];
+  const [booksArray, setBooksArray] = useState<Book[]>([]);
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      try{
+        const response = await axios.get('http://localhost:3001/documents/');
+        const documents: Book[] = response.data;
+        setBooksArray(documents);
+      }catch(error){
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  useEffect(()=>{
+    console.log("add2");
+    console.log(solicitudes);
+    localStorage.setItem('solicitudes', JSON.stringify(solicitudes));
+  }, [solicitudes]);
+
+
+  useEffect(()=>{
+    //filtro autores
+    authors = booksArray.map((book) => book.autor);
+    let uniqueAuthorsToAssign = authors.filter((author, index) => authors.indexOf(author) === index);
+    setUniqueAuthors(uniqueAuthorsToAssign);
+    setTotalPages(Math.ceil(uniqueAuthors.length / authorsPerPage));
+    startIndex = (currentPage - 1) * authorsPerPage;
+    endIndex = (currentPage - 1) * authorsPerPage + authorsPerPage;
+
+    currentAuthors = uniqueAuthors.slice(startIndex, endIndex); //Solo el primero con unique
+    
+    const firstColumn = uniqueAuthors.slice(0, 5);
+    const secondColumn = uniqueAuthors.slice(5, 10);
+    setFirstColumnAuthors(firstColumn);
+    setSecondColumnAuthors(secondColumn);
+    //fin filtro autores
+    //filtro categorias
+    categories = booksArray.map((book) => book.categoria);
+    let uniqueCategoriesToAssign = categories.filter((category, index) => categories.indexOf(category) === index);
+    setUniqueCategories(uniqueCategoriesToAssign);
+    setTotalPagesCategories(Math.ceil(uniqueCategories.length / categoriesPerPage));
+    startIndexCategory = (currentPageCategory - 1) * categoriesPerPage;
+    endIndexCategory = startIndexCategory + categoriesPerPage;
+
+    currentCategories = uniqueCategories.slice(startIndexCategory, endIndexCategory);
+    
+    const firstColumnCategories = uniqueCategories.slice(0, 5);
+    const secondColumnCategories = uniqueCategories.slice(5, 10);
+    setFirstColumnCategories(firstColumnCategories);
+    setSecondColumnCategories(secondColumnCategories);
+    
+
+    //fin filtro categorias
+    //filtro tipos
+    types = booksArray.map((book) => book.tipo);
+    let uniqueTypesToAssign = types.filter((type, index) => types.indexOf(type) === index);
+    setUniqueTypes(uniqueTypesToAssign);
+    setTotalPagesTypes(Math.ceil(uniqueTypes.length / typesPerPage));
+    startIndexType = (currentPageType - 1) * typesPerPage;
+    endIndexType = startIndexType + typesPerPage;
+
+    currentTypes = uniqueTypes.slice(startIndexType, endIndexType);
+    
+    const firstColumnTypes = uniqueTypes.slice(0, 5);
+    const secondColumnTypes = uniqueTypes.slice(5, 10);
+    setFirstColumnTypes(firstColumnTypes);
+    setSecondColumnTypes(secondColumnTypes);   
+    //fin filtro tipos
+    //filtro edicion
+    editions = booksArray.map((book) => book.edicion);
+    let uniqueEditionsToAssign = editions.filter((edition, index) => editions.indexOf(edition) === index);
+    setUniqueEditions(uniqueEditionsToAssign);
+    setTotalPagesEditions(Math.ceil(uniqueEditions.length / editionsPerPage));
+    startIndexEdition = (currentPageEdition - 1) * editionsPerPage;
+    endIndexEdition = startIndexEdition + editionsPerPage;
+
+    currentEditions = uniqueEditions.slice(startIndexEdition, endIndexEdition);
+    
+    const firstColumnEditions = uniqueEditions.slice(0, 5);
+    const secondColumnEditions = uniqueEditions.slice(5, 10);
+    setFirstColumnEditions(firstColumnEditions);
+    setSecondColumnEditions(secondColumnEditions);   
+    //fin filtro edicion
+    //filtro anios
+    years = booksArray.map((book) => book.anio);
+    let uniqueYearsToAssign = years.filter((year, index) => years.indexOf(year) === index);
+    uniqueYearsToAssign.sort((b: string, a: string) => parseInt(b) - parseInt(a));
+    setUniqueYears(uniqueYearsToAssign);
+    minyear = uniqueYears[0];
+    maxyear = uniqueYears[uniqueYears.length - 1];
+    //fin filtro anios
+  },[booksArray])
+  
 
 //FILTRO AUTOR
-  const authors = books.map((book) => book.author);
-  const uniqueAuthors = authors.filter((author, index) => authors.indexOf(author) === index);
+  let authors: string[];
+  const [uniqueAuthors, setUniqueAuthors] = useState<string[]>([]);
+  const [authorsPerPage,setAuthorsPerPage] = useState<number>(10);
+  const [totalPages,setTotalPages] = useState<number>();
+  let startIndex: number;
+  let endIndex: number;
+  let currentAuthors: string[];
+  const [firstColumnAuthors, setFirstColumnAuthors] = useState<string[]>([]);
+  const [secondColumnAuthors, setSecondColumnAuthors] = useState<string[]>([]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const authorsPerPage = 10;
-  const totalPages = Math.ceil(uniqueAuthors.length / authorsPerPage);
-
-  const handleNextPage = () => {
+  const handleNextPage = () => {  
     setCurrentPage((prevPage) => prevPage + 1);
   };
-
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
+  const [selectedAuthors, setSelectedAuthors] = useState<string[]>([]);
 
-  const startIndex = (currentPage - 1) * authorsPerPage;
-  const endIndex = startIndex + authorsPerPage;
-  const currentAuthors = uniqueAuthors.slice(startIndex, endIndex);
+  useEffect(()=>{
+    startIndex = (currentPage - 1) * authorsPerPage;
+    endIndex = (currentPage - 1) * authorsPerPage + authorsPerPage;
 
-  // Dividir la lista de autores en dos filas
-  const firstRowAuthors = currentAuthors.slice(0, 5);
-  const secondRowAuthors = currentAuthors.slice(5, 10);
-  const firstColumnAuthors = currentAuthors.slice(0, 5);
-const secondColumnAuthors = currentAuthors.slice(5, 10);
+    currentAuthors = uniqueAuthors.slice(startIndex, endIndex);
+    
+    const firstColumn = currentAuthors.slice(0, 5);
+    const secondColumn = currentAuthors.slice(5, 10);
+    setFirstColumnAuthors(firstColumn);
+    setSecondColumnAuthors(secondColumn);
+    startIndex = (currentPage - 1) * authorsPerPage;
+    endIndex = startIndex + authorsPerPage;
+  }, [currentPage]);
 
-const [selectedAuthors, setSelectedAuthors] = useState<string[]>([]);
+  
 
 const handleAuthorCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const authorName = e.target.name;
@@ -107,34 +239,39 @@ const handleAuthorCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 const handleClearFilter = () => {
   setSelectedAuthors([]);
 };
-//FIN FILTRO AUTOR
+//FIN FILTRO AUTOr
 
 //FILTRO CATEGORIA
-const categories = books.map((book) => book.category);
-const uniqueCategories = categories.filter((category, index) => categories.indexOf(category) === index);
+  let categories: string[];
+  const [uniqueCategories, setUniqueCategories] = useState<string[]>([]);
+  const [categoriesPerPage,setCategoriesPerPage] = useState<number>(10);
+  const [totalPagesCategories,setTotalPagesCategories] = useState<number>();
+  let startIndexCategory: number;
+  let endIndexCategory: number;
+  let currentCategories: string[];
+  const [firstColumnCategories, setFirstColumnCategories] = useState<string[]>([]);
+  const [secondColumnCategories, setSecondColumnCategories] = useState<string[]>([]);
+  const [currentPageCategory, setCurrentPageCategory] = useState(1);
+  useEffect(()=>{
+    startIndexCategory = (currentPageCategory - 1) * categoriesPerPage;
+    endIndexCategory = (currentPageCategory - 1) * categoriesPerPage + categoriesPerPage;
 
-const [currentPageCategory, setCurrentPageCategory] = useState(1);
-const categoriesPerPage = 10;
-const totalPagesCategories = Math.ceil(uniqueCategories.length / categoriesPerPage);
-
-const handleNextPageCategory = () => {
-  setCurrentPageCategory((prevPage) => prevPage + 1);
-};
-
-const handlePrevPageCategory = () => {
-  setCurrentPageCategory((prevPage) => prevPage - 1);
-};
-
-const startIndexCategory = (currentPageCategory - 1) * categoriesPerPage;
-const endIndexCategory = startIndexCategory + categoriesPerPage;
-const currentCategories = uniqueCategories.slice(startIndexCategory, endIndexCategory);
-
-// Dividir la lista de autores en dos filas
-const firstRowCategories = currentCategories.slice(0, 5);
-const secondRowCategories = currentCategories.slice(5, 10);
-const firstColumnCategories = currentCategories.slice(0, 5);
-const secondColumnCategories = currentCategories.slice(5, 10);
-
+    currentCategories = uniqueCategories.slice(startIndexCategory, endIndexCategory);
+    
+    const firstColumnCategories = currentCategories.slice(0, 5);
+    const secondColumnCategories = currentCategories.slice(5, 10);
+    setFirstColumnCategories(firstColumnCategories);
+    setSecondColumnCategories(secondColumnCategories);
+    startIndexCategory = (currentPageCategory - 1) * categoriesPerPage;
+    endIndexCategory = startIndexCategory + categoriesPerPage;
+  }, [currentPageCategory]);
+  const handleNextPageCategory = () => {
+    setCurrentPageCategory((prevPage) => prevPage + 1);
+  };
+  
+  const handlePrevPageCategory = () => {
+    setCurrentPageCategory((prevPage) => prevPage - 1);
+  };
 const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
 const handleCategoryCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -154,32 +291,38 @@ const handleClearFilterCategory = () => {
 setSelectedCategories([]);
 };
 //FIN FILTRO categoria
+
 //FILTRO tipo
-const types = books.map((book) => book.type);
-const uniqueTypes = types.filter((type, index) => types.indexOf(type) === index);
+  let types: string[];
+  const [uniqueTypes, setUniqueTypes] = useState<string[]>([]);
+  const [typesPerPage,setTypesPerPage] = useState<number>(10);
+  const [totalPagesTypes,setTotalPagesTypes] = useState<number>();
+  let startIndexType: number;
+  let endIndexType: number;
+  let currentTypes: string[];
+  const [firstColumnTypes, setFirstColumnTypes] = useState<string[]>([]);
+  const [secondColumnTypes, setSecondColumnTypes] = useState<string[]>([]);
+  const [currentPageType, setCurrentPageType] = useState(1);
+  useEffect(()=>{
+    startIndexType = (currentPageType - 1) * typesPerPage;
+    endIndexType = (currentPageType - 1) * typesPerPage + typesPerPage;
 
-const [currentPageType, setCurrentPageType] = useState(1);
-const typesPerPage = 10;
-const totalPagesTypes = Math.ceil(uniqueTypes.length / typesPerPage);
-
-const handleNextPageType = () => {
-  setCurrentPageType((prevPage) => prevPage + 1);
-};
-
-const handlePrevPageType = () => {
-  setCurrentPageType((prevPage) => prevPage - 1);
-};
-
-const startIndexType = (currentPageType - 1) * typesPerPage;
-const endIndexType = startIndexType + typesPerPage;
-const currentTypes = uniqueTypes.slice(startIndexType, endIndexType);
-
-// Dividir la lista de autores en dos filas
-const firstRowTypes = currentTypes.slice(0, 5);
-const secondRowTypes = currentTypes.slice(5, 10);
-const firstColumnTypes = currentTypes.slice(0, 5);
-const secondColumnTypes = currentTypes.slice(5, 10);
-
+    currentTypes = uniqueTypes.slice(startIndexType, endIndexType);
+    
+    const firstColumnTypes = currentTypes.slice(0, 5);
+    const secondColumnTypes = currentTypes.slice(5, 10);
+    setFirstColumnTypes(firstColumnTypes);
+    setSecondColumnTypes(secondColumnTypes);
+    startIndexType = (currentPageType - 1) * typesPerPage;
+    endIndexType = startIndexType + typesPerPage;
+  }, [currentPageType]);
+  const handleNextPageType = () => {
+    setCurrentPageType((prevPage) => prevPage + 1);
+  };
+  
+  const handlePrevPageType = () => {
+    setCurrentPageType((prevPage) => prevPage - 1);
+  };
 const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
 
 const handleTypeCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -200,31 +343,36 @@ setSelectedTypes([]);
 };
 //FIN FILTRO tipo
 //FILTRO edicion
-const editions = books.map((book) => book.edition);
-const uniqueEditions = editions.filter((edition, index) => editions.indexOf(edition) === index);
+let editions: string[];
+  const [uniqueEditions, setUniqueEditions] = useState<string[]>([]);
+  const [editionsPerPage,setEditionsPerPage] = useState<number>(10);
+  const [totalPagesEditions,setTotalPagesEditions] = useState<number>();
+  let startIndexEdition: number;
+  let endIndexEdition: number;
+  let currentEditions: string[];
+  const [firstColumnEditions, setFirstColumnEditions] = useState<string[]>([]);
+  const [secondColumnEditions, setSecondColumnEditions] = useState<string[]>([]);
+  const [currentPageEdition, setCurrentPageEdition] = useState(1);
+  useEffect(()=>{
+    startIndexEdition = (currentPageEdition - 1) * editionsPerPage;
+    endIndexEdition = (currentPageEdition - 1) * editionsPerPage + editionsPerPage;
 
-const [currentPageEdition, setCurrentPageEdition] = useState(1);
-const editionsPerPage = 10;
-const totalPagesEditions = Math.ceil(uniqueEditions.length / editionsPerPage);
-
-const handleNextPageEdition = () => {
-  setCurrentPageEdition((prevPage) => prevPage + 1);
-};
-
-const handlePrevPageEdition = () => {
-  setCurrentPageEdition((prevPage) => prevPage - 1);
-};
-
-const startIndexEdition = (currentPageEdition - 1) * editionsPerPage;
-const endIndexEdition = startIndexEdition + editionsPerPage;
-const currentEditions = uniqueEditions.slice(startIndexEdition, endIndexEdition);
-
-// Dividir la lista de autores en dos filas
-const firstRowEditions = currentEditions.slice(0, 5);
-const secondRowEditions = currentEditions.slice(5, 10);
-const firstColumnEditions = currentEditions.slice(0, 5);
-const secondColumnEditions = currentEditions.slice(5, 10);
-
+    currentEditions = uniqueEditions.slice(startIndexEdition, endIndexEdition);
+    
+    const firstColumnEditions = currentEditions.slice(0, 5);
+    const secondColumnEditions = currentEditions.slice(5, 10);
+    setFirstColumnEditions(firstColumnEditions);
+    setSecondColumnEditions(secondColumnEditions);
+    startIndexEdition = (currentPageEdition - 1) * editionsPerPage;
+    endIndexEdition = startIndexEdition + editionsPerPage;
+  }, [currentPageEdition]);
+  const handleNextPageEdition = () => {
+    setCurrentPageEdition((prevPage) => prevPage + 1);
+  };
+  
+  const handlePrevPageEdition = () => {
+    setCurrentPageEdition((prevPage) => prevPage - 1);
+  };
 const [selectedEditions, setSelectedEditions] = useState<string[]>([]);
 
 const handleEditionCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -244,59 +392,70 @@ const handleClearFilterEdition = () => {
 setSelectedEditions([]);
 };
 //FIN FILTRO edicion
-
 //FILTRO AÑOS
-  const years = books.map((book) => book.year);
-  const uniqueYears = years.filter((year, index) => years.indexOf(year) === index);
-  uniqueYears.sort((b: string, a: string) => parseInt(b) - parseInt(a));
-  const minyear = uniqueYears[0];
-  const maxyear = uniqueYears[uniqueYears.length - 1];
-  const [minYear, setMinYear] = useState(minyear);
-  const [maxYear, setMaxYear] = useState(maxyear);
-  const handleClearFilters = () => {
-    setMinYear(minyear);
-    setMaxYear(maxyear);
-  };
-  //FIN FILTRO AÑOS
+let years: string[];
+//let uniqueYears: string[];
+let minyear: string='1000';
+let maxyear: string='2024';
+
+const [uniqueYears, setUniqueYears] = useState<string[]>([]);
+
+const [minYear, setMinYear] = useState(minyear);
+const [maxYear, setMaxYear] = useState(maxyear);
+
+const handleClearFilters = () => {
+  setMinYear(minyear);
+  setMaxYear(maxyear);
+};
+//FIN FILTRO AÑOS
 
 
 
-  // Filtrar libros basados en término de búsqueda y filtro seleccionado
-  const filteredBooks = books.filter((book) => {
-    if (filterBy === "title") {
-      return book.title.toLowerCase().includes(searchTerm.toLowerCase());
-    } else if (filterBy === "author") {
-      if (selectedAuthors.length==0){
-        return true;
-      }
-      return  selectedAuthors.includes(book.author);
-    } else if (filterBy === "year") {
-      if(minYear==""){
-        setMinYear(minyear);
-      }
-      if (maxYear==""){
-        setMaxYear(maxyear);
-      }
-      return parseInt(book.year) >= parseInt(minYear) && parseInt(book.year) <= parseInt(maxYear);
-    } else if (filterBy === "category") {
-      if (selectedCategories.length==0){
-        return true;
-      }
-      return  selectedCategories.includes(book.category); 
-    } else if (filterBy === "type") {
-      if (selectedTypes.length==0){
-        return true;
-      }
-      return  selectedTypes.includes(book.type); 
-    } else if (filterBy === "edition") {
-      if (selectedEditions.length==0){
-        return true;
-      }
-      return  selectedEditions.includes(book.edition);
-    }else return true;
-  });
 
+
+  function filterBooks() {
+    const filteredBooks = booksArray.filter((book) => {
+      if (filterBy === "title") {
+        return book.titulo.toLowerCase().includes(searchTerm.toLowerCase());
+      } else if (filterBy === "author") {
+        if (selectedAuthors.length === 0) {
+          return true;
+        }
+        return selectedAuthors.includes(book.autor);
+      } else if (filterBy === "year") {
+        if (minYear === "") {
+          setMinYear(minyear); // ¡No estoy seguro de qué debería hacer aquí!
+        }
+        if (maxYear === "") {
+          setMaxYear(maxyear); // ¡No estoy seguro de qué debería hacer aquí!
+        }
+        return (
+          parseInt(book.anio) >= parseInt(minYear) &&
+          parseInt(book.anio) <= parseInt(maxYear)
+        );
+      } else if (filterBy === "category") {
+        if (selectedCategories.length === 0) {
+          return true;
+        }
+        return selectedCategories.includes(book.categoria);
+      } else if (filterBy === "type") {
+        if (selectedTypes.length === 0) {
+          return true;
+        }
+        return selectedTypes.includes(book.tipo);
+      } else if (filterBy === "edition") {
+        if (selectedEditions.length === 0) {
+          return true;
+        }
+        return selectedEditions.includes(book.edicion);
+      } else {
+        return true;
+      }
+    });
   
+    return filteredBooks;
+  }
+
   return (
     <div className="book-container">
     <Container>
@@ -340,7 +499,7 @@ setSelectedEditions([]);
             </Col>
             </InputGroup>
 )}
-{filterBy === "author" && (
+{filterBy === "author" &&(
   <InputGroup className="mt-3">
     
     <Col xs={8} className="my-col">
@@ -609,25 +768,27 @@ setSelectedEditions([]);
 
 
       <Row>
-          {filteredBooks.map((book) => (
-            <Col xs={12} sm={6} md={4} key={book.id}>
+      {booksArray.length > 0 ? (
+        filterBooks().map((book) => (
+            <Col xs={12} sm={6} md={4} key={book._id}>
               <br />
               <Card 
                 className="modal-content"
                 style={{ cursor: "pointer" }} // Agrega un estilo para que la card sea clickeable
-                onClick={() => handleOpenModal(book)} 
+                onClick={() => handleOpenModal(book)}
+                /*<Card.Img variant="top" src={book[0].cover} /> */
               >
                 <Row noGutters={true}>
                   <Col xs={4}>
-                    <Card.Img variant="top" src={book.cover} />
+                  <Card.Img variant="top" src={book.imagen} />
                   </Col>
                   <Col xs={8}>
                     <Card.Body>
-                      <Card.Title>{book.title}</Card.Title>
+                      <Card.Title>{book.titulo}</Card.Title>
                       <Card.Text>
-                        <strong>Autor:</strong> {book.author}
+                        <strong>Autor:</strong> {book.autor}
                         <br />
-                        <strong>Año:</strong> {book.year}
+                        <strong>Año:</strong> {book.anio}
                       </Card.Text>
                     </Card.Body>
                   </Col>
@@ -635,7 +796,11 @@ setSelectedEditions([]);
               </Card>
               <br />
             </Col>
-          ))}
+          ))
+      ) : (
+        <p>No se encontraron libros.</p>
+      )
+        }
         </Row>
     </Container>
 
@@ -644,24 +809,24 @@ setSelectedEditions([]);
   {selectedBook && (
     <>
       <Modal.Header closeButton className="modal-content">
-        <Modal.Title>{selectedBook.title}</Modal.Title>
+        <Modal.Title>{selectedBook.titulo}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Container>
           <Row>
             <Col xs={4}>
-              <img src={selectedBook.cover} alt={selectedBook.title} className="img-fluid" />
+              <img src={selectedBook.imagen} alt={selectedBook.titulo} className="img-fluid" />
             </Col>
             <Col xs={8}>
-              <strong>Autor:</strong> {selectedBook.author}
+              <strong>Autor:</strong> {selectedBook.autor}
               <br />
-              <strong>Año:</strong> {selectedBook.year}
+              <strong>Año:</strong> {selectedBook.anio}
               <br />
-              <strong>Categoría:</strong> {selectedBook.category}
+              <strong>Categoría:</strong> {selectedBook.categoria}
               <br />
-              <strong>Tipo:</strong> {selectedBook.type}
+              <strong>Tipo:</strong> {selectedBook.tipo}
               <br />
-              <strong>Edición:</strong> {selectedBook.edition}
+              <strong>Edición:</strong> {selectedBook.edicion}
             </Col>
           </Row>
         </Container>

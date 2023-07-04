@@ -218,7 +218,7 @@ const searchDocumentsController = async (req: Request) => {
         filter.autor = searchValue;
         break;
       case 'anio':
-        filter.anio = parseInt(searchValue);
+        filter.anio = searchValue;
         break;
     }
 
@@ -249,7 +249,7 @@ const searchDocumentsControllerMid = async (req: Request, res: Response) => {
         filter.autor = searchValue;
         break;
       case 'anio':
-        filter.anio = parseInt(searchValue);
+        filter.anio = searchValue;
         break;
       // Agrega más casos para otros tipos de búsqueda según tus necesidades
 

@@ -60,8 +60,8 @@ type User {
     titulo: String!
     autor: String!
     editorial: String!
-    anio: Int!
-    edicion: Int!
+    anio: String!
+    edicion: String!
     categoria: String!
     tipoMedio: String!
     fecha_registro: String!
@@ -136,9 +136,9 @@ type User {
 
     # Documents y Ejemplares
     createDocument(tipo: String!, titulo: String!, autor: String!, editorial: String!,
-      anio: Int!, edicion: Int!, categoria: String!, tipoMedio: String!): Document
+      anio: String!, edicion: String!, categoria: String!, tipoMedio: String!): Document
     updateDocument(id: ID!, tipo: String!, titulo: String!, autor: String!, editorial: String!,
-      anio: Int!, edicion: Int!, categoria: String!, tipoMedio: String!): Document
+      anio: String!, edicion: String!, categoria: String!, tipoMedio: String!): Document
     deleteDocument(id: ID!): String
     createEjemplar(idDocumento: ID!, estado: String!, ubicacion: String!): Ejemplar
     updateEjemplar(id: ID!, estado: String, ubicacion: String): Ejemplar
@@ -271,8 +271,8 @@ export const root = {
         titulo,
         autor,
         editorial,
-        anio: Number(anio),
-        edicion: Number(edicion),
+        anio: anio,
+        edicion: edicion,
         categoria,
         tipoMedio,
         fecha_registro: new Date()
@@ -288,8 +288,8 @@ export const root = {
           titulo,
           autor,
           editorial,
-          anio: Number(anio),
-          edicion: Number(edicion),
+          anio: anio,
+          edicion: edicion,
           categoria,
           tipoMedio
         });

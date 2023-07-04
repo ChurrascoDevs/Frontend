@@ -28,10 +28,11 @@ import loansRouter from './loans/Loan_controller';
 import { graphqlHTTP } from 'express-graphql';
 import {schema, root} from './schema'
 
-
+const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = 3001;
 
+app.use(cors());
 app.use(express.json());
 
 // Rutas para los documentos vía normal (no graphql)
