@@ -8,7 +8,7 @@ import axios from 'axios';
 
 function getDocumentoById(idDocumento : string){
   return new Promise((resolve, reject) => {
-    axios.post('http://localhost:3000/graphql', {
+    axios.post('http://localhost:3001/graphql', {
       query: `
       {
         getdocument(id : "${idDocumento}"){
@@ -39,7 +39,7 @@ function getDocumentoById(idDocumento : string){
 
 function getEjemplarById(idEjemplar : string){
   return new Promise((resolve, reject) => {
-    axios.post('http://localhost:3000/graphql', {
+    axios.post('http://localhost:3001/graphql', {
       query: `
       {
         getEjemplarById(id : "${idEjemplar}"){
@@ -68,7 +68,7 @@ function getEjemplarById(idEjemplar : string){
 
 function getLoan(id : string) {
   return new Promise((resolve, reject) => {
-    axios.post('http://localhost:3000/graphql', {
+    axios.post('http://localhost:3001/graphql', {
       query: `
       {
         getLoanByID(_id: "${id}") {
@@ -125,7 +125,7 @@ function Devolucion() {
 
   const devolver = (idDevolucion : string) => {
     
-    axios.post('http://localhost:3000/graphql', {
+    axios.post('http://localhost:3001/graphql', {
         query: `
         {
           devolver(idEjemplar:"${idDevolucion}")
