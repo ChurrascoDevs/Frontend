@@ -83,8 +83,8 @@ export interface Document {
     titulo: string;
     autor: string;
     editorial: string;
-    anio: number;
-    edicion: number;
+    anio: string;
+    edicion: string;
     categoria: string;
     tipoMedio: string;
     fecha_registro: Date;
@@ -98,8 +98,8 @@ export const SkeletonDocumento = {
     titulo: "No disponible",
     autor: "No disponible",
     editorial: "No disponible",
-    anio: 1900,
-    edicion: 1,
+    anio: "1900",
+    edicion: "1",
     categoria: "No disponible",
     tipoMedio: "No disponible",
     imagen: `https://placehold.co/150x200?text=No disponible?`,
