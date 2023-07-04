@@ -39,6 +39,7 @@ export const registerController = async (req: Request, res: Response) => {
           email: email,
           telefono: telefono,
           activo: true,
+          isAdmin: false,
           fecha_registro: new Date()
         });
         console.log(`A document was inserted with the _id: ${result.insertedId}`);
@@ -75,7 +76,7 @@ export const loginController = async (req: Request, res: Response) => {
 
       //Se envia una respuesta de que salio todo bien, junto con el token
       console.log(user);
-      return res.status(200).json({ status: 'success', token: token})
+      return res.status(200).json({ status: 'success', token: token, isAdmin: user.isAdmin, id: user._id})
 
     } catch (e: any){
       console.log(e);
@@ -108,4 +109,31 @@ export const deleteUserController = async (req: Request, res: Response) => {
       console.log(`Error al intentar elimnar usuario: Server error`)
       res.status(500).json({ error: 'Error en el servidor' });
     }
+};
+
+export const getUserController = async (req: Request, res: Response) => {
+  //Se ingresa a la base de datos
+  const db = getDatabase();
+  //Se hace el request para obetener el id
+  const { id } = req.params;
+  const _oId = new ObjectId(id)
+  //Lista de usuarios (Documentos) de la base de datos (DB)
+  const Users = db.collection<User>("Users");
+
+  try {  
+    // Verificar si el usuario existe
+    const existingUser = await Users.findOne({ _id: _oId});
+    if (!existingUser) {
+      console.log(`User con _id: ${_oId} no existe`)
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    // Eliminarndo información de seguridad
+    existingUser.password="";
+    //console.log(`User con _id: ${_oId} fue enviado`)
+    res.json({ message: existingUser });
+  } catch (error) {
+    console.log(`Error al buscar y retornar usuario: Server error`)
+    res.status(500).json({ error: 'Error en el servidor' });
+  }
 };

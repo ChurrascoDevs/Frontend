@@ -19,12 +19,14 @@ import {
 import { 
   loginController, 
   registerController, 
-  deleteUserController 
+  deleteUserController,
+  getUserController 
 } from './users/userController';
 
 import express from 'express';
 import { connectDatabase} from './database';
 import loansRouter from './loans/Loan_controller';
+import documentRouter from './document/Documents_Controller';
 import { graphqlHTTP } from 'express-graphql';
 import {schema, root} from './schema'
 
@@ -35,6 +37,13 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
+app.use(cors({
+  origin: 'http://localhost:3000',
+}));
+
+
+// Rutas para los documentos
+app.use('/documents', documentRouter);
 // Rutas para los documentos vía normal (no graphql)
 app.use('/Loans', loansRouter);
 
@@ -57,6 +66,9 @@ connectDatabase()
     
     //Delete User DELETE
     app.delete('/delete/user/:id', deleteUserController);
+
+    //Data User GET
+    app.get('/get/user/:id', getUserController);
 
     // Crear Documento
     app.post('/documents', createDocumentControllerMid);

@@ -11,7 +11,6 @@
 .item-container {
   display: flex;
   flex-direction: column;
-  /*height: 100%;*/
   justify-content: space-between;
   padding: 20px;
 }
@@ -20,7 +19,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: calc(100% / 3 * 2);
+  width: calc(100%*0.4);
   align-self: center;
 }
 
@@ -62,7 +61,7 @@
 .item-list {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 90vh;
 }
 
 .list-item {
@@ -85,7 +84,6 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  height: 50px;
   width: 50px;
   margin-right: 10px;
 }
@@ -104,8 +102,9 @@
   padding-inline: 10px;
 }
 
-.details-user-data-divider {
+.details-data-divider {
   border-top: groove;
+  width: 100%;
 }
 
 .state-doc-badge {
@@ -144,4 +143,10 @@
 
 .mi-paginacion .page-link::before {
   content: "";
+}
+
+tr {
+  display: inline-block;
+  width: 100%;
+  margin-right: 10px;
 }

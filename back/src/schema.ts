@@ -348,7 +348,7 @@ export const root = {
       const idEjemplar = args.idEjemplar;
       let db = getDatabase();
       const collection = db.collection("Loans");
-      let result = await collection.updateOne({_id: new ObjectId(idEjemplar) }, { $set: {fechaDevolucion: new Date()} });
+      let result = await collection.updateOne({_id: new ObjectId(idEjemplar) }, { $set: {fechaDevolucion: new Date() , estado: "Devuelto"} });
       if( result.modifiedCount >= 1 ){
         return true;
       }

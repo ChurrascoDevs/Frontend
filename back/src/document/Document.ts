@@ -12,6 +12,5 @@ interface Document {
     imagen: string;
     fecha_registro: Date;
 }
-
-export default Document;
   
+export default Document;

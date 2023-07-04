@@ -1,8 +1,9 @@
 import { ObjectId, OptionalId, Filter, UpdateFilter, Collection, FindOptions } from 'mongodb';
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { getDatabase } from '../database';
 import Document from './Document';
 
+const router = Router();
 let collection: Collection<Document>;
 
 // Obtener la colección de Documentos
@@ -78,7 +79,7 @@ const getDocumentControllerMid = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const collection = await getCollection();
-    const filter: Filter<Document> = { _id: new ObjectId(id.toString()) };
+    const filter: Filter<Document> = { _id: new ObjectId(id) };
     const document = await collection.findOne(filter);
     if (document) {
       res.json(document);
@@ -323,3 +324,5 @@ export {
   searchDocumentsControllerMid,
   getAllDocumentsControllerMid
 };
+
+export default router;

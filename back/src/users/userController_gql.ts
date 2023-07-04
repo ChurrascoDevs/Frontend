@@ -76,6 +76,7 @@ export const registerController = async (username: string, password: string, rut
           email: email,
           telefono: telefono,
           activo: true,
+          isAdmin: false,
           fecha_registro: new Date()
         });
         console.log(`A document was inserted with the _id: ${result.insertedId}`);

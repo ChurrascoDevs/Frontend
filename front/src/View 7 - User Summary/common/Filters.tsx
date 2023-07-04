@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Form, FormControl, Button, FormGroup } from "react-bootstrap";
 import './Filters.css'
 
-const Filters = () => {
+type FilterProps = {
+  onFilterChange: (categoryFilter: string, stateFilter: string, termFilter: string) => void;
+};
+
+export function Filters ({onFilterChange}:FilterProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterBy, setFilterBy] = useState("");
+  const [filterByState, setFilterByState] = useState("Todos");
+  const [filterByCategory, setFilterByCategory] = useState("Todos");
+
+  const HandleSearch = () => {
+    onFilterChange(filterByCategory, filterByState, searchTerm);
+  };
 
   return (
     <Container className="filter-container">
@@ -16,26 +25,26 @@ const Filters = () => {
       <Row>
         <Form.Label>Estado</Form.Label>
         <Form.Select
-        value={filterBy}
-        onChange={(e) => setFilterBy(e.target.value)}
+        value={filterByState}
+        onChange={(e) => setFilterByState(e.target.value)}
       >
-          <option value="">Pendientes</option>
-          <option value="Aceptados">Aceptados</option>
-          <option value="Rechazados">Rechazados</option>
           <option value="Todos">Todos</option>
+          <option value="Solicitado">Petición pendiente</option>
+          <option value="Prestado">Devolución pendiente</option>
+          <option value="Devuelto">Finalizados</option>
+          <option value="Rechazado">Rechazados</option>
         </Form.Select>
       </Row>
       <br></br>
       <Row>
-        <Form.Label>Tipo documento</Form.Label>
+        <Form.Label>Tipo prestamo</Form.Label>
         <Form.Select
-        value={filterBy}
-        onChange={(e) => setFilterBy(e.target.value)}
+        value={filterByCategory}
+        onChange={(e) => setFilterByCategory(e.target.value)}
       >
-        <option value="">Libro</option>
-        <option value="Video">Video</option>
-        <option value="Material">Material</option>
-        <option value="Otro">Otro</option>
+        <option value="Todos">Todos</option>
+        <option value="domicilio">Domicilio</option>
+        <option value="sala">Sala</option>
       </Form.Select>
     </Row>
     <br></br>
@@ -50,12 +59,10 @@ const Filters = () => {
     </Row>
     <br></br>
     <Row>
-        <Button variant="success" className="positive-action"href="#docList">Buscar</Button>
+        <Button variant="success" className="positive-action"href="#docList" onClick={() => HandleSearch()}>Buscar</Button>
     </Row>
     </FormGroup>
     <hr className="rounded"></hr>
     </Container>
   );
 };
-
-export default Filters;
