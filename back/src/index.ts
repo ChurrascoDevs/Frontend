@@ -30,7 +30,6 @@ import documentRouter from './document/Documents_Controller';
 import { graphqlHTTP } from 'express-graphql';
 import {schema, root} from './schema'
 
-
 const cors = require('cors');
 const app = express();
 const port = 3001;
