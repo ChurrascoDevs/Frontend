@@ -22,10 +22,11 @@ npm start
 
 ### Credenciales disponible para iniciar sesión:
 En http://localhost:3000/
-Para entrar como administrador del sistema:
-- Usuario: myUsername
-- Contraseña: myContraseña
 
-Para entrar como cliente:
-- Usuario: cliente
-- Contraseña: pass
+- Para entrar como administrador del sistema:
+  - Usuario: myUsername
+  - Contraseña: myContraseña
+
+- Para entrar como cliente:
+  - Usuario: cliente
+  - Contraseña: pass
