@@ -5,10 +5,11 @@ interface Document {
     titulo: string;
     autor: string;
     editorial: string;
-    anio: number;
-    edicion: number;
+    anio: string;
+    edicion: string;
     categoria: string;
     ubicacion: string; 
+    imagen: string;
     fecha_registro: Date;
 }
   

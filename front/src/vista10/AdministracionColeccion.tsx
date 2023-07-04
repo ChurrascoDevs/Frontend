@@ -20,19 +20,22 @@ function AdministracionColeccion() {
     ubicacion: '',
     imagen: ''
   });
-
+  const [existencias, setExistencias] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [showContent, setShowContent] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDocumento({ ...documento, [e.target.name]: e.target.value });
   };
+  const handleExistenciasChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setExistencias(Number(e.target.value));
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(documento);
-
-    fetch('http://localhost:4000/documents', {
+  
+    fetch('http://localhost:3001/documents', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(documento),
@@ -42,6 +45,24 @@ function AdministracionColeccion() {
         console.log(data);
         setShowContent(true);
         setShowModal(true);
+  
+        // Después de que se haya creado el documento, crear ejemplares
+        const ejemplar = {
+          idDocumento: data._id, 
+          estado: "disponible",
+          ubicacion: documento.ubicacion
+        };
+  
+        for (let i = 0; i < existencias; i++) {
+          fetch(`http://localhost:3001/ejemplares/${data._id}`, { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(ejemplar)
+          })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch((error) => console.error('Error:', error));
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -158,6 +179,22 @@ function AdministracionColeccion() {
                 <Form.Control style={form_control} name="imagen" placeholder="URL de la imagen" value={documento.imagen} onChange={handleChange} />
               </Form.Group>
             </Form.Group>
+
+            <Form.Group bsPrefix="mb-3" as={Row} className="d-flex align-items-end">
+            <Form.Group as={Col} xs={3}>
+              <Form.Label>Existencias</Form.Label>
+            </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Control 
+                style={form_control} 
+                name="existencias" 
+                type="number" 
+                placeholder="Existencias" 
+                value={existencias} 
+                onChange={handleExistenciasChange} // Usa el nuevo manejador de cambios
+              />
+            </Form.Group>
+          </Form.Group>
 
             <div className="d-flex flex-row-reverse">
               <Button className="my-custom-button" type="submit">Ingresar</Button>
