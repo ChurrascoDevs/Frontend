@@ -22,9 +22,9 @@ export interface Loan {
 const SkeletonLoan = {
     _id: "000000",
     idUsuario: "000000",
-    idEjemplar: "",
-    tipoPrestamo: "",
-    estado: "",
+    idEjemplar: "000000",
+    tipoPrestamo: "No disponible",
+    estado: "No disponible",
     fechaSolicitud: new Date(),
     fechaPrestamo: undefined,
     fechaDevolucion: undefined,
@@ -32,6 +32,82 @@ const SkeletonLoan = {
     isSkeleton: true,
 };
 
+export interface User {
+    _id: string;
+    rut: string;
+    nombre: string;
+    apellido: string;
+    direccion: string;
+    email: string;
+    telefono: string;
+    activo: boolean;
+    fecha_registro: Date
+    [key: string]: any; //otros
+};
+
+export const SkeletonUser = {
+    _id: "000000",
+    rut: "00.000.000-0",
+    nombre: "Nombre",
+    apellido: "Apellido",
+    direccion: "Dirección",
+    email: "Nombre1@example.com",
+    telefono: "+00 0000 0000",
+    userImage: `https://placehold.co/150?text=${"Nombre"}`,
+    activo: false,
+    fecha_registro: new Date(),
+    isSkeleton: true,
+};
+
+export interface Ejemplar {
+    _id: string,
+    idDocumento: string,
+    estado: string, // Tomado | Disponible
+    ubicación: string,
+    fecha_registro: Date,
+    [key: string]: any; //otros
+};
+
+export const SkeletonEjemplar = {
+    _id: "0000",
+    idDocumento: "0000",
+    estado: "Tomado",
+    ubicación: "No disponible",
+    fecha_registro: new Date(),
+    isSkeleton: true,
+};
+
+export interface Document {
+    _id: string;
+    tipo: string;
+    titulo: string;
+    autor: string;
+    editorial: string;
+    anio: number;
+    edicion: number;
+    categoria: string;
+    tipoMedio: string;
+    fecha_registro: Date;
+    imagen: string;
+    [key: string]: any; //otros
+};
+
+export const SkeletonDocumento = {
+    _id: "0000",
+    tipo: "No disponible",
+    titulo: "No disponible",
+    autor: "No disponible",
+    editorial: "No disponible",
+    anio: 1900,
+    edicion: 1,
+    categoria: "No disponible",
+    tipoMedio: "No disponible",
+    imagen: `https://placehold.co/150x200?text=No disponible?`,
+    fecha_registro: new Date(),
+    isSkeleton: true,
+};
+
+//Loans
 export async function postBackLoans(idPrestamo: string, tipo: string): Promise<boolean> {
     const data = {
         idPrestamo: idPrestamo,
@@ -75,7 +151,7 @@ export async function getBackLoans(subQuery: string): Promise<Loan[]> {
 
     } catch (error:any) {
         // Handle the error
-        console.log(error.message);            
+        //console.log(error.message);          
     }
 
     // Handle empty loans history - Después manejado como skeleton en render
@@ -96,12 +172,104 @@ export async function getBackLoans(subQuery: string): Promise<Loan[]> {
             loans[i].imageUrl = "https://via.placeholder.com/150x200";
             loans[i].nombre = "Documento de ejemplo";
         }else{
-            loans[i].nombre = "Query nombre";
-            loans[i].imageUrl = `https://placehold.co/150x200?text=${loans[i].nombre}`; //temporal o cuando no existe imagen
+            console.log(loans[i].idEjemplar);
+            const ejemplarData = await getBackEjemplar(loans[i].idEjemplar);
+            console.log("ejemplarData");console.log(ejemplarData);
+            const documentoData = await getBackDocumento(ejemplarData.idDocumento);
+            console.log("documentoData");console.log(documentoData);
+            loans[i].nombre = documentoData.titulo;
+            loans[i].imagen = documentoData.imagen; //temporal o cuando no existe imagen
         }
         
     }
 
     console.log(loans);
     return loans
+}
+
+//User data
+export async function getBackUser(userId: string): Promise<User> {
+    const config = {
+        method: 'get',
+        url: `http://localhost:3001/get/user/${userId}`,
+        headers: {}
+      };
+
+    try {
+        const response = await axios(config);
+        const user : User = response.data.message;
+        user.userImage = `https://placehold.co/150?text=${"Nombre"}`; //temporal, not in back
+        return user
+
+    } catch (error:any) {
+        // Handle the error
+        //console.log(error.message);
+        return SkeletonUser;         
+    }
+}
+
+//Ejemplar estado
+export async function getBackEjemplar(idEjemplar: string): Promise<Ejemplar> {
+    const config = {
+        method: 'get',
+        url: `http://localhost:3001/ejemplares/buscar_ejemplar/${idEjemplar}`,
+        headers: {}
+      };
+
+    try {
+        const response = await axios(config);
+        const ejemplar : Ejemplar = response.data;
+        return ejemplar;
+
+    } catch (error:any) {
+        // Handle the error
+        //console.log(error.message);
+        return SkeletonEjemplar;         
+    }
+}
+
+// actualizar ejemplar
+export async function postBackEjemplar(idEjemplar: string, tipo: string): Promise<boolean> {
+    const data = {
+        estado: tipo //'Tomado' | 'Disponible'
+      };
+      
+    const config = {
+        method: 'put',
+        url: `http://localhost:3001/ejemplares/${idEjemplar}`,
+        headers: { },
+        data: data,
+    };
+      
+    const response = await axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          return true;
+        })
+        .catch(function (error) {
+          //console.log(error);
+          return false;
+        });
+
+    return response;
+}
+
+//Documento data, desde ejemplar
+export async function getBackDocumento(idDocumento: string): Promise<Document> {
+    const config = {
+        method: 'get',
+        url: `http://localhost:3001/documents/${idDocumento}`,
+        headers: {}
+      };
+
+    try {
+        const response = await axios(config);
+        const ejemplar : Document = response.data;
+        return ejemplar;
+
+    } catch (error:any) {
+        // Handle the error
+        //console.log(error.message);
+        return SkeletonDocumento;         
+    }
 }

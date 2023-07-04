@@ -79,7 +79,7 @@ const getDocumentControllerMid = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const collection = await getCollection();
-    const filter: Filter<Document> = { _id: new ObjectId(id.toString()) };
+    const filter: Filter<Document> = { _id: new ObjectId(id) };
     const document = await collection.findOne(filter);
     if (document) {
       res.json(document);

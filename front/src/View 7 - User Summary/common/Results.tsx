@@ -2,7 +2,9 @@ import { SetStateAction, useEffect, useState } from "react";
 import { Container, Row, Col, Table, Card, ListGroup, Button, Stack, Toast, ToastContainer, Badge } from "react-bootstrap";
 import Image from 'react-bootstrap/Image';
 import { CustomPagination } from "./CustomPagination"
-import { getBackLoans, Loan, postBackLoans} from './UtilsAxios';
+import { getBackUser, getBackDocumento,
+   getBackEjemplar, postBackEjemplar,
+   getBackLoans, Loan, postBackLoans} from './UtilsAxios';
 import "./Results.css";
 
 type ResultsProps = {
@@ -90,26 +92,51 @@ export function Results({rol, userID, filters}: ResultsProps){
   })(selectedItem?.estado);
 
   //Setting user interactions
-  const handleItemClick = (item: Loan) => {
-    //query item details - temporalmente manual
-    item.edicion = "Query edición";
-    item.categoria = "Query categoría";
-    item.autor = "Query autor";
-    item.rutUsuario = "Query usuario";
-    item.nombreUsuario = "Query usuario";
+  const handleItemClick = async (item: Loan) => {
+    //query item details
+    const userData = await getBackUser(item.idUsuario);
+    const ejemplarData = await getBackEjemplar(item.idEjemplar);
+    const documentoData = await getBackDocumento(ejemplarData.idDocumento);
+
+    item.edicion = documentoData.edicion;
+    item.categoria = documentoData.categoria;
+    item.autor = documentoData.autor;
+    item.ubicacion = ejemplarData.ubicación;
+    item.estadoDoc = ejemplarData.estado;
+
+
+    item.rutUsuario = userData.rut;
+    item.nombreUsuario = userData.nombre + " " + userData.apellido;
+
     item.idToDisplay = item.idEjemplar.slice(0,6);  //consultar si aquí o desde back y formula
     setSelectedItem(item);
   };
 
   const handlePositiveAction = async (item: Loan) => {
-    const success = await postBackLoans(item._id, "aceptar"); //temporalmente no se inluye opción selección fecha manual
-    if (success) {
-      setToastMsg("El prestamo a sido ACEPTADO correctamente,");
+    const ejemplarData = await getBackEjemplar(item.idUsuario);
+    //revisión estado ejemplar
+    if (ejemplarData.estado === "Tomado") {
+      setToastMsg("Error, ejemplar no disponible.");
       setShowToast(true);
-      setRefreshResults(true);
-    } else{
-      setToastMsg("Error al actualizar el prestamo, intente nuevamente.");
-      setShowToast(true);
+    }else{
+      //cambio de estad a ejemplar
+      const success0 = await postBackEjemplar(item.idEjemplar, "Tomado");
+      if (success0) {
+        const success = await postBackLoans(item._id, "aceptar"); //temporalmente no se inluye opción selección fecha manual
+        if (success) {
+          setToastMsg("El prestamo a sido ACEPTADO correctamente,");
+          setShowToast(true);
+          setRefreshResults(true);
+        } else{
+          //temporal - Rollback just once...
+          const success0 = await postBackEjemplar(item.idEjemplar, "Disponible");
+          setToastMsg("Error inesperado al actualizar el prestamo, intente nuevamente.");
+          setShowToast(true);
+        } 
+      }else{
+        setToastMsg("Error inesperado al actualizar el ejemplar, intente nuevamente.");
+        setShowToast(true);
+      }
     }
   };
 
@@ -184,7 +211,7 @@ export function Results({rol, userID, filters}: ResultsProps){
                 >
                   <Row>
                     <Col className="list-item-image" >
-                      <Image className="list-item-image" src={item.imageUrl} rounded />
+                      <Image className="list-item-image" src={item.imagen} rounded />
                     </Col>
                     <Col><p className="list-item-name">{item.nombre}</p></Col>
                     <Col><p>{item.fechaSolicitud.toLocaleString()}</p></Col>
@@ -212,38 +239,45 @@ export function Results({rol, userID, filters}: ResultsProps){
               </Card.Title>
             </Row>
             <hr className="rounded"></hr>
-            <Image className="item-image" src={selectedItem?.imageUrl} rounded />
+            <Image className="item-image" src={selectedItem?.imagen} rounded />
             <div className="item-details">
+            <hr className="rounded"></hr>
               {selectedItem ? (
                 <>
                   <Table>
                     <tbody>
                       <tr>
-                        <td>Categoría: {selectedItem.categoria}</td>
-                        <td>Ejemplar: {selectedItem.idEjemplar}</td>
+                        <td><b>Ejemplar:</b> {selectedItem.idEjemplar} ({selectedItem.estadoDoc})</td>
                       </tr>
                       <tr>
-                        <td>Edición: {selectedItem.edicion}</td>
-                        <td>Autor: {selectedItem.autor}</td>
+                        <td><b>Categoría:</b> {selectedItem.categoria}</td>
+                        <td><b>Ubicacion:</b> {selectedItem.ubicacion}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Edición:</b> {selectedItem.edicion}</td>
+                        <td><b>Autor:</b> {selectedItem.autor}</td>
                       </tr>
                       <tr className="details-data-divider">
-                        <td>Rut usuario: {selectedItem.rutUsuario}</td>
-                        <td>Nombre: {selectedItem.nombreUsuario}</td>
+                        <td><b>Rut usuario:</b> {selectedItem.rutUsuario}</td>
+                        <td><b>Nombre:</b> {selectedItem.nombreUsuario}</td>
                       </tr>
                       <tr className="details-data-divider">
-                        <td>tipoPrestamo: {selectedItem.tipoPrestamo}</td>
+                        <td><b>Tipo prestamo:</b> {selectedItem.tipoPrestamo}</td>
                       </tr>
                       <tr>
-                        <td>Fecha solicitado: {selectedItem.fechaSolicitud?.toLocaleString()}</td>
+                        <td><b>Fecha solicitado:</b> {selectedItem.fechaSolicitud?.toLocaleString()}</td>
                       </tr>
                       <tr>
-                        <td>Fecha prestamo: {selectedItem.fechaPrestamo?.toLocaleString()}</td>
+                        <td><b>Fecha prestamo:</b> {selectedItem.fechaPrestamo?.toLocaleString()}</td>
                       </tr>
                       <tr>
-                        <td>Fecha límite: {selectedItem.fechaDevolucion?.toLocaleString()}</td>
+                        <td><b>Fecha límite:</b> {selectedItem.fechaDevolucion?.toLocaleString()}</td>
                       </tr>
                       <tr>
-                        <td>Fecha devuelto: {selectedItem.fechaDevolucionReal?.toLocaleString()}</td>
+                        <td><b>Fecha devuelto:</b> {selectedItem.fechaDevolucionReal?.toLocaleString()}</td>
+                      </tr>
+                      <tr className="details-data-divider">
+                        <td>Prestamo ID: {selectedItem._id}</td>
                       </tr>
                     </tbody>
                   </Table>

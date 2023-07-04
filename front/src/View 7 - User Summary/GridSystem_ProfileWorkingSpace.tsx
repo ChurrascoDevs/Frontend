@@ -20,9 +20,8 @@ const GridSystem_ProfileWorkSpace = () => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
   
   //User rol
-  const storedValue = localStorage.getItem('isAdmin');
-  console.log(storedValue);
-  const [user, setUser] = useState(storedValue==='true' ? 'Bibliotecario' : 'Cliente biblioteca'); //"Administrativo"
+  const storedAdminValue = localStorage.getItem('isAdmin');
+  const [user, setUser] = useState(storedAdminValue==='true' ? 'Bibliotecario' : 'Cliente biblioteca'); //"Administrativo"
 
   const userID = localStorage.getItem('id') || 'InvalidUserID'; // testing -> "6486ae65a3871d9b4faf83e0";
 
@@ -63,11 +62,11 @@ const GridSystem_ProfileWorkSpace = () => {
       <Row className="animated-row">
         <Col>
           <div className="full-width-box">
-            <Card.Link onClick={()=>
+            {/*<Card.Link onClick={()=>
               user==="Bibliotecario"? setUser("Administrativo"): 
               user==="Administrativo"? setUser("Cliente biblioteca"): setUser("Bibliotecario")}>
-                [ DEV - click para cambiar usuario: ADMINISTRATIVO | CLIENTE | BIBLIOTECARIO ] 
-            </Card.Link>
+                [ DEV - click para cambiar usuario: ADMINISTRATIVO | CLIENTE | BIBLIOTECARIO ]
+            </Card.Link>*/}
             <UserProfile rol = {user} userID={userID}></UserProfile>
           </div>
         </Col>

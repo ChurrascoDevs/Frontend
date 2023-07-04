@@ -19,7 +19,8 @@ import {
 import { 
   loginController, 
   registerController, 
-  deleteUserController 
+  deleteUserController,
+  getUserController 
 } from './users/userController';
 
 import express from 'express';
@@ -65,6 +66,9 @@ connectDatabase()
     
     //Delete User DELETE
     app.delete('/delete/user/:id', deleteUserController);
+
+    //Data User GET
+    app.get('/get/user/:id', getUserController);
 
     // Crear Documento
     app.post('/documents', createDocumentControllerMid);
