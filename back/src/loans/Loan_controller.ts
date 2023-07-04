@@ -2,6 +2,8 @@ import { ObjectId, OptionalId, Filter, UpdateFilter, Collection } from 'mongodb'
 import { Router, Request, Response } from 'express';
 import { getDatabase } from '../database';
 import  LoanModel, {Loan} from './Loan';
+import { updateEjemplar } from '../Ejemplar/Ejemplar_Controller';
+import { json } from 'body-parser';
 
 const router = Router();
 let collection: Collection<Loan>;
@@ -152,8 +154,10 @@ router.patch('/update', async (req, res) => {
                 result = await Loans.updateOne({_id: targetId},{$set: {estado: "Rechazado"}});
                 break;
             case 'aceptar':
+                //validation of document not "Tomado" ("Disponible") via front
                 let transformFd = fechaDevolucion ? fechaDevolucion : new Date(Date.now() + 7);
                 result = await Loans.updateOne({_id: targetId}, { $set: {fechaPrestamo: new Date(Date.now()), fechaDevolucion: new Date(transformFd), estado: "Prestado"}});
+                //updateEjemplar handled via front + rollback if needed
                 break;
             case 'cerrar':
                 result = await Loans.updateOne({_id: targetId},{$set:{fechaDevolucionReal: new Date(Date.now()), estado: "Devuelto"}});

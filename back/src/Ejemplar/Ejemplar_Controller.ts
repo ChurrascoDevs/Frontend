@@ -147,16 +147,13 @@ const getEjemplarByIdQL = async (id: string) => {
 const updateEjemplar = async (req: Request, res: Response) => {
   try {
     const { _id } = req.params;
-    const { estado, ubicacion } = req.body;
-    const fecha_registro = new Date();
+    const { estado } = req.body;
 
     const collection = await getCollection();
     const filter: Filter<Ejemplar> = { _id: new ObjectId(_id) };
     const updateFilter: UpdateFilter<Ejemplar> = {
       $set: {
         estado,
-        ubicacion,
-        fecha_registro,
       },
     };
 

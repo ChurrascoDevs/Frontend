@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Image, Accordion, Badge } from 'react-bootstrap';
 import { Book, Boxes, PersonCheck } from 'react-bootstrap-icons';
+import { getBackUser, User, SkeletonUser } from './UtilsAxios';
 import './UserProfile.css';
 
 type userInfo = {
   rol: string;
+  userID: string;
 };
 
-const UserProfile = ({rol}: userInfo) => {
-  const userData = { 
-    id: 12938, rol: rol, 
-    names: "Nombre Nombre2", lastNames:"Apellido1 Apellido2", rut: "12.3456.789-0",
-    userImage: "https://via.placeholder.com/150", 
-    phone: "+569 1234 5678", email: "Nombre1@example.com", 
-    active:"SI", address:"Mi hogar 123" }
+const UserProfile = ({rol, userID}: userInfo) => {
+  const [user, setUser] = useState<User>(SkeletonUser); //mostrados en página actual (10)
 
+  //Consulta a back inicial y al recargar resultados - TODO revisar doble carga
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getBackUser(userID);
+      setUser(response);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Container>
@@ -22,34 +28,36 @@ const UserProfile = ({rol}: userInfo) => {
       <Accordion.Item eventKey="0">
         <Accordion.Header className='acordion-header'>
           <Col><h5> Perfil de usuario </h5></Col>
-          <Col><h5> <Badge bg={userData.rol==="Cliente biblioteca"? "success" :"primary"}>{userData.rol}</Badge></h5></Col>
+          <Col><h5> <Badge bg={user.rol==="Cliente biblioteca"? "success" :"primary"}>{user.rol}</Badge></h5></Col>
         </Accordion.Header>
         <Accordion.Body>
           <Row>
           <Col xs={2}>
-            <div className="text-right">
-              <Image src={userData.userImage} roundedCircle fluid /> 
-              {userData.rol==="Bibliotecario"? <Book size={60}/>: 
-              userData.rol==="Administrativo"? <Boxes size={60}/> : <PersonCheck size={60}/>}
+            <div className="text-right rol-image-container">
+              <Image src={user.userImage} roundedCircle fluid /> 
+              <div className="overlay">
+                {user.rol==="Bibliotecario"? <Book size={60}/>: 
+                user.rol==="Administrativo"? <Boxes size={60}/> : <PersonCheck size={60}/>}
+              </div>
             </div>
           </Col>
           <Col xs={10}>
             <Row>
               <Col>
-                <h2>{userData.names} {userData.lastNames}</h2>
+                <h2>{user.names} {user.lastNames}</h2>
               </Col>
             </Row>
             <hr className="rounded"></hr>
             <Row>
               <Col>
-                <p><b>Tipo de usuario:</b> {userData.rol}</p>
-                <p><b>Email:</b> {userData.email}</p>
-                <p><b>Teléfono:</b> {userData.phone}</p>
+                <p><b>Tipo de usuario:</b> {user.rol}</p>
+                <p><b>Email:</b> {user.email}</p>
+                <p><b>Teléfono:</b> {user.telefono}</p>
               </Col>
               <Col>
-                <p><b>Rut:</b> {userData.rut}</p>
-                <p><b>Dirección:</b> {userData.address}</p>
-                <p><b>Activo:</b> {userData.active}</p>
+                <p><b>Rut:</b> {user.rut}</p>
+                <p><b>Dirección:</b> {user.direccion}</p>
+                <p><b>Activo:</b> {user.activo? "SI":"NO"}</p>
               </Col>
             </Row>
           </Col>
