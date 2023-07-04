@@ -69,17 +69,17 @@ function LibroTabla({ libros }: LibroTablaProps) {
   }, []);
 
   const enviarSolicitudes = async () => {
-    const IdUsuario = localStorage.getItem('ID');
+    const IdUsuario = localStorage.getItem('id');
     const solicitudes = selectedLibros.map(book => ({
-      IdUsuario,
-      IdEjemplar: book.ejemplar._id, // Asume que cada ejemplar tiene un _id único
-      tipoprestamo: "Domicilio"
+      idUsuario: IdUsuario,
+      idEjemplar: book.ejemplar._id, // Asume que cada ejemplar tiene un _id único
+      tipoPrestamo: "Domicilio"
     }));
   
     for (const solicitud of solicitudes) {
       try {
         await axios.post('http://localhost:3001/Loans/new', solicitud);
-        await axios.put(`http://localhost:3001/ejemplares/${solicitud.IdEjemplar}`, { estado: "tomado" }); // Cambia el estado del ejemplar a "tomado"
+        //await axios.put(`http://localhost:3001/ejemplares/${solicitud.IdEjemplar}`, { estado: "tomado" }); // Cambia el estado del ejemplar a "tomado"
       } catch (error) {
         console.error("Error al enviar la solicitud:", error);
       }

@@ -178,7 +178,7 @@ export async function getBackLoans(subQuery: string): Promise<Loan[]> {
             const documentoData = await getBackDocumento(ejemplarData.idDocumento);
             console.log("documentoData");console.log(documentoData);
             loans[i].nombre = documentoData.titulo;
-            loans[i].imagen = documentoData.imagen; //temporal o cuando no existe imagen
+            loans[i].imagen = documentoData.imagen? documentoData.imagen: `https://placehold.co/150x200?text=Imagen no disponible`; //temporal o cuando no existe imagen
         }
         
     }
