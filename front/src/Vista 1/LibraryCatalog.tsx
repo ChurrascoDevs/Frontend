@@ -2,9 +2,6 @@ import React, { useEffect, useState,useContext } from "react";
 import { Container, Row, Col, Card, Form, InputGroup, FormControl, Button, Modal } from "react-bootstrap";
 import './LibraryCatalog.css';
 import axios from 'axios';
-import { FilterLeft } from "react-bootstrap-icons";
-import { SolicitudContext } from './SolicitudContext';
-
 
 interface Book {
   _id: number;
@@ -27,26 +24,11 @@ const LibraryCatalog = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [solicitudes, setSolicitudes] = useState<Book[]>([]);
-  //const contextValue = useContext(SolicitudContext);
-  //const { solicitudes, dispatch } = contextValue || {};
 
-//if (!solicitudes || !dispatch) {
-  //throw new Error('useSolicitud debe usarse dentro de un SolicitudProvider');
-//}
-  /*interface Book {
-    id: number;
-    title: string;
-    author: string;
-    year: string; 
-    category: string; 
-    type: string; 
-    edition: string;
-    cover: string;
-  }*/  
-  
+
 
 // Función para abrir el modal con el libro seleccionado
-const handleOpenModal = (book: Book) => { // Especifica el tipo de 'book' como 'Book'
+const handleOpenModal = (book: Book) => { 
   setShowModal(true);
   setSelectedBook(book);
   console.log("LIBRO:" , setSelectedBook)
@@ -65,32 +47,7 @@ const handleAddToSolicitud = (book: Book) => {
   handleCloseModal(); // Cerrar el modal después de agregar el libro
 };
 
-  // Datos de ejemplo para los libros
-  const books = [
-    { id: 1, title: "1984", author: "George Orwell", year: "1949", category: "Ficción distópica", type:"Novela", edition: "Primera edición",cover: "https://via.placeholder.com/150" },
-    { id: 2, title: "La Guerra y la Paz", author: "Lev Tolstói", year: "1869", category: "Ficción histórica", type:"Novela", edition: "Edición en español",cover: "https://via.placeholder.com/150" },
-    { id: 3, title: "El Perfume", author: "Patrick Süskind", year: "1985", category: "Ficción", type:"Novela", edition: "Edición de bolsillo",cover: "https://via.placeholder.com/150" },
-    { id: 4, title: "Cien años de soledad", author: "Gabriel García Márquez", year: "1967", category: "Ficción", type:"Novela", edition: "Edición crítica",cover: "https://via.placeholder.com/150" },
-    { id: 5, title: "El Principito", author: "Antoine de Saint-Exupéry", year: "1943", category: "Ficción", type:"Cuento", edition: "Edición ilustrada",cover: "https://via.placeholder.com/150" },
-    { id: 6, title: "La sombra del viento", author: "Carlos Ruiz Zafón", year: "2001", category: "Ficción", type:"Novela", edition: "Edición de tapa dura",cover: "https://via.placeholder.com/150" },
-    { id: 7, title: "Breve historia del tiempo", author: "Stephen Hawking", year: "1988", category: "No ficción", type:"Divulgación científica", edition: "Edición de bolsillo",cover: "https://via.placeholder.com/150" },
-    { id: 8, title: "El arte de amar", author: "Erich Fromm", year: "1956", category: "No ficción", type:"Ensayo", edition: "Edición actualizada",cover: "https://via.placeholder.com/150" },
-    { id: 9, title: "El nombre de la rosa", author: "Umberto Eco", year: "1980", category: "Ficción histórica", type:"Novela", edition: "Edición especial con prólogo del autor",cover: "https://via.placeholder.com/150" },
-    { id: 10, title: "Las venas abiertas de América Latina", author: "Eduardo Galeano", year: "1971", category: "No ficción", type:"Ensayo político", edition: "Edición con anotaciones del autor",cover: "https://via.placeholder.com/150" },
-    { id: 11, title: "El Aleph", author: "Jorge Luis Borges ", year: "1949", category: "Ficción", type:"Cuento", edition: "Edición en español",cover: "https://via.placeholder.com/150" },
-    { id: 12, title: "Matar a un ruiseñor", author: "Harper Lee", year: "1960", category: "Ficción", type:"Novela", edition: "Edición de bolsillo",cover: "https://via.placeholder.com/150" },
-    { id: 13, title: "La naranja mecánica", author: " Anthony Burgess", year: "1962", category: " Ficción distópica", type:"Novela", edition: "Edición crítica",cover: "https://via.placeholder.com/150" },
-    { id: 14, title: "Mujercitas", author: "Louisa May Alcott", year: "1868", category: "Ficción", type:"Novela", edition: "Edición de tapa dura",cover: "https://via.placeholder.com/150" },
-    { id: 15, title: "La insoportable levedad del ser", author: "Milan Kundera", year: "1984", category: "Ficción", type:"Novela", edition: "Edición especial con prólogo del autor",cover: "https://via.placeholder.com/150" },
-    { id: 16, title: "Crónica de una muerte anunciada", author: "Gabriel García Márquez", year: "1981", category: "Ficción", type:"Novela", edition: "Edición de bolsillo",cover: "https://via.placeholder.com/150" },
-    { id: 17, title: "El Hobbit", author: "J.R.R. Tolkien", year: "1937", category: "Ficción fantástica", type:"Novela", edition: "Edición de tapa blanda",cover: "https://via.placeholder.com/150" },
-    { id: 18, title: "El retrato de Dorian Gray", author: "Oscar Wilde", year: "1890", category: "Ficción", type:"Novela", edition: "Edición de bolsillo",cover: "https://via.placeholder.com/150" },
-    { id: 19, title: "El psicoanalista", author: "John Katzenbach", year: "2002", category: "Ficción", type:"Novela de suspense", edition: "Edición actualizada",cover: "https://via.placeholder.com/150" },
-    { id: 20, title: "La tregua", author: "Mario Benedetti", year: "1960", category: "Ficción", type:"Novela", edition: "Edición de tapa dura",cover: "https://via.placeholder.com/150" },
-    { id: 21, title: "1984", author: "George Orwell ", year: "1949", category: "Ficción distópica", type:"Novela", edition: "Primera edición",cover: "https://via.placeholder.com/150" },
-  ];
 
-  //let booksArray: Book[] = [];
   const [booksArray, setBooksArray] = useState<Book[]>([]);
 
   useEffect(()=>{

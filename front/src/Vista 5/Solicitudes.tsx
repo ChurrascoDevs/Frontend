@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { SolicitudContext} from "../Vista 1/SolicitudContext"; // importa el contexto
+
 import LibroTabla from "./LibroTabla"; // Importa el componente LibroTabla
 interface Book {
   _id: number;

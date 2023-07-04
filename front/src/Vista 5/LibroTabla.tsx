@@ -97,10 +97,11 @@ function LibroTabla({ libros }: LibroTablaProps) {
   return (
     <Container>
       <br></br>
-      <Row>
+      <Row className="justify-content-center">
         <Col sm={6} md={12}>
           <div>
-            <Table className="mx-auto tabla-con-fondo" striped bordered hover>
+          <Table className="mx-auto w-100 tabla-con-fondo" striped bordered hover>
+
               <thead>
                 <tr style={{ textAlign: "center", verticalAlign: "middle" }}>
                   <th>Portada</th>

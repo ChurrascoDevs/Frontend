@@ -7,7 +7,6 @@ const form_control = {
 
 const tipos = ['Científico', 'Histórico', 'Novela', 'Ensayo', 'Ficción'];
 const categorias = ['Literatura Española', 'Literatura Chilena', 'Ciencia', 'Historia', 'Arte', 'Geografía', 'Filosofía'];
-
 function AdministracionColeccion() {
   const [documento, setDocumento] = useState({
     tipo: tipos[0],
@@ -84,7 +83,18 @@ function AdministracionColeccion() {
       imagen: ''
     });
   };
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
+  // Si el usuario no es un administrador, muestra un mensaje.
+  if (!isAdmin) {
+    return (
+      <Container className="devo-container gap-3" style={{ paddingTop: '40px' }}>
+        <Card className='p-4'>
+          <h3 className='centerForm'>No eres administrador y no puedes ingresar documentos.</h3>
+        </Card>
+      </Container>
+    );
+  }
   return (
     <Container className="devo-container gap-3" style={{ paddingTop: '40px' }}>
       <Card className='p-4'>

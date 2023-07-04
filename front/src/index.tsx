@@ -19,55 +19,39 @@ import AdministracionColeccion from './vista10/AdministracionColeccion';
 
 
 export default function App() {
-  const [isAdmin, setIsAdmin] = useState(false); //Se inicializa el estado de isAdmin como falso
+  const [isAdmin, setIsAdmin] = useState(false); 
 
-
-  //Esta funcion se pasa al componente de "Login" para setear la variable "isAdmin"
   const handleLoginSuccess = (isAdminUser: boolean) => {
     setIsAdmin(isAdminUser);
     if (!isAdminUser) {
-      // Si no es administrador (es decir, si es un usuario normal), redirecciona al catálogo
       window.location.href = '/catalogo';
     }
   };
-  
+
+  // Redirecciona a la página de perfil si el usuario es un administrador.
+  useEffect(() => {
+    if (isAdmin) {
+      window.location.href = '/perfil';
+    }
+  }, [isAdmin]);
+
   return (
-      <Router>
+    <Router>
       <Routes>
-      <Route path="/register" element={<Register></Register>}> </Route>
-        <Route path="/" element={
-          isAdmin ? ( //esto es el condicional de inicio de sesion para admin
+        <Route path="/register" element={<Register></Register>}></Route>
+        <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+
+            <Route path="/catalogo" element={<LibraryCatalog />} />
+            <Route path="/agregar" element={<AdministracionColeccion/>}> </Route>
+            <Route path="/solicitudes" element={<Solicitudes />} />
+            <Route path="/perfil" element={<GridSystem_ProfileWorkspace></GridSystem_ProfileWorkspace>}> </Route>
+            <Route path="/devolucion" element={<Devolucion/>}> </Route>
             
-            <Navigate to="perfil" replace />
-          ) : (
-            <Login onLoginSuccess={handleLoginSuccess} />
-          )
-        }
-      />
-        {isAdmin ? (//mismo condicional, pero este indica las rutas a las cuales pueden acceder los usuarios
-          <>
-            <Route path="/" element={<Navigate to="perfil" replace />}></Route>
-            <Route path="catalogo" element={<LibraryCatalog />} />
-            <Route path="agregar" element={<AdministracionColeccion/>}> </Route>
-            <Route path="solicitudes" element={<Solicitudes />} />
-            <Route path="perfil" element={<GridSystem_ProfileWorkspace></GridSystem_ProfileWorkspace>}> </Route>
-          </>
-        ) : (
-          <>
-            <Route path="catalogo" element={<LibraryCatalog />} />
-            <Route path="devolucion" element={<Devolucion/>}> </Route>
-            <Route path="solicitudes" element={<Solicitudes />} />
-            <Route path="perfil" element={<GridSystem_ProfileWorkspace></GridSystem_ProfileWorkspace>}> </Route>
-            <Route
-              path="/*"
-              element={<Navigate to="catalogo" replace />}
-            />
-          </>
-        )}
       </Routes>
     </Router>
   );
 }
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
