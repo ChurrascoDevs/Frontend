@@ -30,3 +30,5 @@ En http://localhost:3000/
 - Para entrar como cliente:
   - Usuario: cliente
   - Contraseña: pass
+### Link video demostración:
+https://www.youtube.com/watch?v=maKaovQHZn8&ab_channel=GERSONGerson
